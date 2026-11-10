@@ -15,29 +15,52 @@
             user-select: none;
             -webkit-user-select: none;
             touch-action: manipulation;
+            box-sizing: border-box;
         }
-        body {
-            background: linear-gradient(180deg, #2b1055 0%, #591a73 50%, #75225b 100%);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            overflow: hidden;
+        html, body {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            width: 100vw;
-            color: #fff;
+            width: 100%;
+            min-height: 100vh;
+            background: #fff5f8;
+            background: linear-gradient(180deg, #ffeef4 0%, #ffd6e5 50%, #fff0f5 100%);
+            background-attachment: fixed;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #4a3b4e;
+            overflow-x: hidden;
         }
 
-        /* Dreamy Neon & Soft Glass Styling */
+        /* Warm Kawaii & Jelly Styling */
         .dream-title {
-            text-shadow: 0 0 12px rgba(244, 114, 182, 0.9), 0 0 24px rgba(192, 132, 252, 0.7);
+            text-shadow: 0 2px 10px rgba(255, 138, 174, 0.5);
+            font-family: cursive, sans-serif;
         }
         .dream-card {
-            background: rgba(30, 27, 75, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1.5px solid rgba(244, 114, 182, 0.3);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 182, 206, 0.6);
+            box-shadow: 0 8px 24px rgba(255, 182, 206, 0.25);
         }
         .machine-box {
-            box-shadow: 0 0 30px rgba(244, 114, 182, 0.35), inset 0 0 20px rgba(192, 132, 252, 0.25);
+            box-shadow: 0 12px 35px rgba(255, 140, 180, 0.35), inset 0 0 20px rgba(255, 255, 255, 0.6);
+            background: linear-gradient(180deg, #fff0f5 0%, #ffd1e3 50%, #ffc0d9 100%);
+        }
+
+        /* Jelly Soft Buttons */
+        .btn-jelly-pink {
+            background: linear-gradient(180deg, #ff8fa3 0%, #ff6b8b 100%);
+            box-shadow: 0 4px 15px rgba(255, 107, 139, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.4);
+            border: 2px solid #ff4d73;
+        }
+        .btn-jelly-amber {
+            background: linear-gradient(180deg, #ffc857 0%, #ffb129 100%);
+            box-shadow: 0 4px 15px rgba(255, 177, 41, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.4);
+            border: 2px solid #e09300;
+        }
+        .btn-jelly-purple {
+            background: linear-gradient(180deg, #c77dff 0%, #b155ff 100%);
+            box-shadow: 0 4px 15px rgba(177, 85, 255, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.4);
+            border: 2px solid #9d2bf5;
         }
 
         /* Crank Handle Animation */
@@ -52,23 +75,23 @@
         /* Machine Shake Animation */
         @keyframes machineShake {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            20% { transform: translateY(-3px) rotate(-1deg); }
-            40% { transform: translateY(3px) rotate(1deg); }
-            60% { transform: translateY(-2px) rotate(-0.5deg); }
-            80% { transform: translateY(2px) rotate(0.5deg); }
+            20% { transform: translateY(-3px) rotate(-1.5deg); }
+            40% { transform: translateY(3px) rotate(1.5deg); }
+            60% { transform: translateY(-2px) rotate(-0.8deg); }
+            80% { transform: translateY(2px) rotate(0.8deg); }
         }
         .shaking {
             animation: machineShake 0.5s ease-in-out;
         }
 
-        /* Modal Pop Animations */
+        /* Pop Animations */
         @keyframes popIn {
             0% { transform: scale(0.6); opacity: 0; }
             80% { transform: scale(1.05); }
             100% { transform: scale(1); opacity: 1; }
         }
         .animate-pop-in {
-            animation: popIn 0.35s ease-out forwards;
+            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         /* Drop Capsule Animation */
@@ -83,13 +106,31 @@
             animation: capsuleDrop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Pulsing Glow Effect */
+        /* Pulsing Soft Glow */
         @keyframes pulseGlow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(244,114,182,0.6)); }
-            50% { filter: drop-shadow(0 0 22px rgba(192,132,252,0.95)); }
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255,143,163,0.5)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,107,139,0.8)); transform: scale(1.03); }
         }
         .pulse-glow {
-            animation: pulseGlow 2.2s infinite;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+
+        /* Heart Float Animation */
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-70px) scale(1.4) rotate(15deg); opacity: 0; }
+        }
+        .animate-heart {
+            animation: floatHeart 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* Bounce Soft */
+        @keyframes bounceSoft {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-soft {
+            animation: bounceSoft 2.2s infinite ease-in-out;
         }
     </style>
 </head>
@@ -98,22 +139,22 @@
     <!-- TOP GLOBAL HUD HEADER -->
     <header class="w-full flex justify-between items-center z-20 pt-1 px-3">
         <!-- Coin Counter HUD -->
-        <div class="flex items-center space-x-2 bg-slate-900/80 border border-amber-400/50 px-3.5 py-1.5 rounded-full shadow-lg">
-            <i class="fa-solid fa-coins text-amber-300 text-base animate-bounce"></i>
-            <span id="globalCoinCount" class="font-extrabold text-amber-300 text-base tracking-wider">0</span>
+        <div class="flex items-center space-x-2 bg-white/90 border-2 border-amber-300 px-3.5 py-1 rounded-full shadow-md">
+            <span class="text-base">💰</span>
+            <span id="globalCoinCount" class="font-black text-amber-600 text-base tracking-wider">0</span>
         </div>
 
         <!-- Header Title -->
-        <h1 class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-indigo-300 dream-title">
-            夢幻貓咪扭蛋機
+        <h1 class="text-xl font-black text-pink-500 dream-title flex items-center space-x-1">
+            <span>🐾 夢幻貓咪樂園</span>
         </h1>
 
         <!-- Mute & Rules Controls -->
         <div class="flex space-x-2">
-            <button id="helpBtn" class="w-9 h-9 rounded-full bg-slate-900/80 border border-pink-400/50 text-pink-300 flex items-center justify-center active:scale-90 transition">
+            <button id="helpBtn" class="w-9 h-9 rounded-full bg-white/90 border-2 border-pink-300 text-pink-400 flex items-center justify-center active:scale-90 transition shadow">
                 <i class="fa-solid fa-circle-question text-base"></i>
             </button>
-            <button id="soundToggleBtn" class="w-9 h-9 rounded-full bg-slate-900/80 border border-cyan-400/50 text-cyan-300 flex items-center justify-center active:scale-90 transition">
+            <button id="soundToggleBtn" class="w-9 h-9 rounded-full bg-white/90 border-2 border-pink-300 text-pink-400 flex items-center justify-center active:scale-90 transition shadow">
                 <i class="fa-solid fa-volume-high text-base" id="soundIcon"></i>
             </button>
         </div>
@@ -123,53 +164,64 @@
     <main class="w-full flex-1 relative my-2 overflow-hidden flex flex-col justify-center items-center">
 
         <!-- ==================== SCREEN 1: HOME SCREEN ==================== -->
-        <section id="screenHome" class="w-full h-full flex flex-col items-center justify-between p-4 z-10">
+        <section id="screenHome" class="w-full h-full flex flex-col items-center justify-between p-3 z-10">
             <!-- Hero Artwork Banner -->
             <div class="w-full flex-1 flex flex-col items-center justify-center text-center">
-                <div class="relative w-44 h-44 rounded-full bg-gradient-to-tr from-pink-500/40 via-purple-500/30 to-indigo-500/40 border-4 border-pink-300/40 flex items-center justify-center pulse-glow mb-4">
+                <div class="relative w-44 h-44 rounded-full bg-gradient-to-tr from-pink-200 via-rose-100 to-amber-100 border-4 border-white flex items-center justify-center pulse-glow mb-3 shadow-xl">
                     <svg viewBox="0 0 100 100" class="w-32 h-32">
-                        <polygon points="25,25 35,50 15,45" fill="#f472b6"/>
-                        <polygon points="75,25 65,50 85,45" fill="#f472b6"/>
-                        <circle cx="50" cy="55" r="28" fill="#fb7299"/>
-                        <circle cx="40" cy="50" r="4" fill="#fff"/>
-                        <circle cx="60" cy="50" r="4" fill="#fff"/>
-                        <path d="M44 63 Q50 68 56 63" stroke="#fff" stroke-width="2.5" fill="none"/>
+                        <polygon points="25,25 35,50 15,45" fill="#ff758f"/>
+                        <polygon points="75,25 65,50 85,45" fill="#ff758f"/>
+                        <circle cx="50" cy="55" r="28" fill="#ff8fa3"/>
+                        <circle cx="40" cy="50" r="4" fill="#4a3b4e"/>
+                        <circle cx="60" cy="50" r="4" fill="#4a3b4e"/>
+                        <circle cx="36" cy="48" r="1.5" fill="#fff"/>
+                        <circle cx="56" cy="48" r="1.5" fill="#fff"/>
+                        <path d="M44 63 Q50 68 56 63" stroke="#fff" stroke-width="3" fill="none"/>
+                        <ellipse cx="32" cy="58" rx="4" ry="2.5" fill="#ff4d73" opacity="0.6"/>
+                        <ellipse cx="68" cy="58" rx="4" ry="2.5" fill="#ff4d73" opacity="0.6"/>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-black text-pink-200 mb-1 tracking-wide">進入貓咪夢幻樂園</h2>
-                <p class="text-xs text-purple-200/80 max-w-xs leading-relaxed">
-                    轉動扭蛋機解鎖 12 款珍稀貓咪，收集圖鑑、餵食罐頭賺取金幣，體驗保底抽獎樂趣！
+                <h2 class="text-2xl font-black text-pink-600 mb-1 tracking-wide">歡迎來到貓咪樂園 (⁠ฅ⁠^⁠o⁠^⁠ฅ⁠)</h2>
+                <p class="text-xs text-pink-700/80 max-w-xs leading-relaxed font-bold">
+                    轉動扭蛋機解鎖 12 款溫馨萌貓，做任務賺金幣，體驗超治癒餵食互動！
                 </p>
             </div>
 
             <!-- Dashboard Summary Card -->
-            <div class="w-full dream-card rounded-2xl p-4 mb-4 flex justify-around items-center text-center">
+            <div class="w-full dream-card rounded-3xl p-3.5 mb-3 flex justify-around items-center text-center border-2 border-pink-200">
                 <div>
-                    <div class="text-[11px] text-purple-300 font-bold uppercase">總收集卡牌</div>
-                    <div id="homeCollectedCount" class="text-xl font-black text-pink-300">0 / 12</div>
+                    <div class="text-[11px] text-pink-500 font-bold">總收集卡牌</div>
+                    <div id="homeCollectedCount" class="text-xl font-black text-pink-600">0 / 12</div>
                 </div>
-                <div class="w-px h-8 bg-purple-500/30"></div>
+                <div class="w-0.5 h-8 bg-pink-200"></div>
                 <div>
-                    <div class="text-[11px] text-purple-300 font-bold uppercase">圖鑑達成率</div>
-                    <div id="homePercent" class="text-xl font-black text-cyan-300">0%</div>
+                    <div class="text-[11px] text-pink-500 font-bold">圖鑑達成率</div>
+                    <div id="homePercent" class="text-xl font-black text-rose-500">0%</div>
                 </div>
-                <div class="w-px h-8 bg-purple-500/30"></div>
+                <div class="w-0.5 h-8 bg-pink-200"></div>
                 <div>
-                    <div class="text-[11px] text-purple-300 font-bold uppercase">幸運保底值</div>
-                    <div id="homePity" class="text-xl font-black text-amber-300">0 / 100</div>
+                    <div class="text-[11px] text-pink-500 font-bold">幸運保底值</div>
+                    <div id="homePity" class="text-xl font-black text-amber-500">0 / 100</div>
                 </div>
             </div>
 
-            <!-- Start & Gallery Action Buttons -->
-            <div class="w-full flex flex-col space-y-3">
-                <button id="goGachaBtn" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-black text-base uppercase tracking-wider shadow-lg active:scale-95 transition flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-gamepad text-lg"></i>
-                    <span>開始轉扭蛋 (50 🪙)</span>
+            <!-- Main Menu Buttons -->
+            <div class="w-full grid grid-cols-2 gap-2.5">
+                <button id="goGachaBtn" class="py-3 rounded-2xl btn-jelly-pink text-white font-black text-sm uppercase tracking-wider active:scale-95 transition flex items-center justify-center space-x-1.5">
+                    <span class="text-lg">🎰</span>
+                    <span>轉扭蛋 (50金幣)</span>
                 </button>
-
-                <button id="goGalleryFromHomeBtn" class="w-full py-3 rounded-2xl bg-slate-900/80 border border-purple-400/40 text-purple-200 font-bold text-sm tracking-wider active:scale-95 transition flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-book-open"></i>
-                    <span>瀏覽貓咪圖鑑館</span>
+                <button id="goFeedBtn" class="py-3 rounded-2xl btn-jelly-amber text-slate-800 font-black text-sm uppercase tracking-wider active:scale-95 transition flex items-center justify-center space-x-1.5">
+                    <span class="text-lg">🐟</span>
+                    <span>餵食貓咪小屋</span>
+                </button>
+                <button id="goQuestsBtn" class="py-2.5 rounded-2xl bg-white/90 border-2 border-amber-300 text-amber-700 font-black text-xs tracking-wider active:scale-95 transition flex items-center justify-center space-x-1.5 shadow-sm">
+                    <i class="fa-solid fa-list-check text-amber-500"></i>
+                    <span>任務中心賺錢</span>
+                </button>
+                <button id="goGalleryFromHomeBtn" class="py-2.5 rounded-2xl bg-white/90 border-2 border-pink-300 text-pink-700 font-black text-xs tracking-wider active:scale-95 transition flex items-center justify-center space-x-1.5 shadow-sm">
+                    <i class="fa-solid fa-book-open text-pink-500"></i>
+                    <span>瀏覽貓咪圖鑑</span>
                 </button>
             </div>
         </section>
@@ -177,52 +229,51 @@
         <!-- ==================== SCREEN 2: GACHA ROOM ==================== -->
         <section id="screenGacha" class="w-full h-full flex flex-col items-center justify-between p-2 hidden z-10">
             <!-- Machine Top Status Bar -->
-            <div class="w-full dream-card rounded-xl px-3 py-1.5 flex justify-between items-center text-xs">
+            <div class="w-full dream-card rounded-2xl px-3 py-2 flex justify-between items-center text-xs border-2 border-pink-200">
                 <div class="flex items-center space-x-1.5">
-                    <span class="text-purple-300 font-bold">幸運值 (保底):</span>
-                    <div class="w-24 h-2.5 bg-slate-950 rounded-full overflow-hidden border border-purple-400/40">
+                    <span class="text-pink-600 font-black">幸運值:</span>
+                    <div class="w-24 h-3 bg-pink-100 rounded-full overflow-hidden border border-pink-300">
                         <div id="pityBar" class="h-full bg-gradient-to-r from-amber-400 to-pink-500 w-0 transition-all duration-300"></div>
                     </div>
-                    <span id="pityText" class="text-amber-300 font-bold">0/100</span>
+                    <span id="pityText" class="text-amber-600 font-black">0/100</span>
                 </div>
-                <button id="feedCoinBtn" class="bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg active:scale-90 transition shadow flex items-center space-x-1">
-                    <i class="fa-solid fa-cookie"></i>
-                    <span>餵罐頭 +10</span>
+                <button id="navQuestsQuickBtn" class="btn-jelly-amber text-slate-900 font-black text-xs px-2.5 py-1 rounded-xl active:scale-90 transition flex items-center space-x-1">
+                    <span>📋 做任務賺錢</span>
                 </button>
             </div>
 
             <!-- Arcade Machine Container -->
-            <div id="machineBody" class="relative w-full max-w-[310px] h-[390px] bg-gradient-to-b from-purple-900/90 via-slate-900 to-pink-950/90 border-4 border-pink-400/60 rounded-3xl machine-box flex flex-col items-center p-2.5 my-auto">
+            <div id="machineBody" class="relative w-full max-w-[310px] h-[390px] border-4 border-white rounded-3xl machine-box flex flex-col items-center p-3 my-auto">
                 <!-- Machine Glass Globe (Canvas Window) -->
-                <div class="relative w-full h-52 rounded-2xl bg-gradient-to-b from-slate-900/70 to-purple-950/50 border-2 border-purple-300/40 overflow-hidden shadow-inner flex items-center justify-center">
+                <div class="relative w-full h-52 rounded-2xl bg-gradient-to-b from-white/80 to-pink-50/50 border-2 border-pink-200 overflow-hidden shadow-inner flex items-center justify-center">
                     <canvas id="gachaCanvas" class="w-full h-full"></canvas>
-                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/40 pointer-events-none"></div>
                 </div>
 
                 <!-- Controls & Crank Plate -->
-                <div class="w-full flex-1 flex flex-col items-center justify-between mt-2 px-2">
+                <div class="w-full flex-1 flex flex-col items-center justify-between mt-2.5 px-1">
                     <!-- Rotary Knob Deck -->
-                    <div class="w-full flex justify-between items-center bg-slate-950/80 border border-purple-400/30 rounded-2xl p-2 shadow-inner">
+                    <div class="w-full flex justify-between items-center bg-white/90 border-2 border-pink-200 rounded-2xl p-2 shadow-sm">
                         <div class="flex flex-col items-start pl-1">
-                            <span class="text-[10px] text-pink-300 font-bold uppercase tracking-wider">投幣口</span>
-                            <span class="text-xs text-amber-300 font-black">50 🪙 / 抽</span>
-                            <span class="text-[9px] text-purple-300/80">點轉盤或按鈕發動</span>
+                            <span class="text-[10px] text-pink-400 font-black uppercase tracking-wider">投幣口</span>
+                            <span class="text-xs text-amber-600 font-black">50 金幣 / 抽</span>
+                            <span class="text-[9px] text-pink-400">點擊旋轉轉盤發動</span>
                         </div>
 
                         <!-- Interactive Crank Handle -->
-                        <div id="crankArea" class="relative w-16 h-16 flex items-center justify-center cursor-pointer">
-                            <div id="crankKnob" class="crank-knob w-14 h-14 rounded-full bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 border-4 border-slate-900 shadow-[0_0_12px_rgba(244,114,182,0.6)] flex items-center justify-center">
-                                <div class="w-10 h-3 bg-slate-200 rounded-full shadow flex items-center justify-between px-1">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
-                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
+                        <div id="crankArea" class="relative w-16 h-16 flex items-center justify-center cursor-pointer active:scale-90 transition">
+                            <div id="crankKnob" class="crank-knob w-14 h-14 rounded-full btn-jelly-pink flex items-center justify-center shadow-lg">
+                                <div class="w-10 h-3 bg-white rounded-full shadow flex items-center justify-between px-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Exit Tray -->
-                    <div class="w-full h-14 bg-slate-950 border-2 border-slate-800 rounded-xl relative flex items-center justify-center overflow-hidden shadow-inner mt-1">
-                        <span class="text-[9px] text-slate-500 font-bold tracking-widest uppercase absolute top-0.5">扭蛋取出口 (TAP BALL)</span>
+                    <div class="w-full h-14 bg-pink-100/80 border-2 border-pink-200 rounded-xl relative flex items-center justify-center overflow-hidden shadow-inner mt-1">
+                        <span class="text-[9px] text-pink-400 font-black tracking-widest uppercase absolute top-0.5">扭蛋取出口 (點擊取蛋)</span>
                         <div id="exitTray" class="w-full h-full flex items-center justify-center relative cursor-pointer z-10">
                             <!-- Dropped capsule renders here -->
                         </div>
@@ -232,39 +283,125 @@
 
             <!-- Bottom Navigation Bar for Gacha Screen -->
             <div class="w-full flex space-x-2">
-                <button id="backHomeFromGachaBtn" class="w-1/3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-300 font-bold text-xs active:scale-95">
+                <button id="backHomeFromGachaBtn" class="w-1/3 py-2.5 rounded-2xl bg-white/90 border-2 border-pink-200 text-pink-600 font-black text-xs active:scale-95 shadow-sm">
                     <i class="fa-solid fa-house mr-1"></i>首頁
                 </button>
-                <button id="pullBtn" class="w-1/3 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-black text-xs uppercase tracking-wider shadow-md active:scale-95">
-                    <i class="fa-solid fa-arrows-rotate mr-1"></i>旋轉 (50🪙)
+                <button id="pullBtn" class="w-1/3 py-2.5 rounded-2xl btn-jelly-pink text-white font-black text-xs uppercase tracking-wider active:scale-95">
+                    <span>旋轉 (50金幣)</span>
                 </button>
-                <button id="goGalleryFromGachaBtn" class="w-1/3 py-2.5 rounded-xl bg-slate-900/80 border border-purple-400/40 text-purple-200 font-bold text-xs active:scale-95">
+                <button id="goGalleryFromGachaBtn" class="w-1/3 py-2.5 rounded-2xl bg-white/90 border-2 border-pink-200 text-pink-600 font-black text-xs active:scale-95 shadow-sm">
                     <i class="fa-solid fa-book-open mr-1"></i>圖鑑
                 </button>
             </div>
         </section>
 
-        <!-- ==================== SCREEN 3: COLLECTION GALLERY ==================== -->
+        <!-- ==================== SCREEN 3: FEEDING HAVEN ==================== -->
+        <section id="screenFeed" class="w-full h-full flex flex-col justify-between p-2 hidden z-10 relative">
+            <!-- Top Status Bar -->
+            <div class="w-full dream-card rounded-2xl p-3 flex justify-between items-center border-2 border-pink-200">
+                <div>
+                    <h2 class="text-sm font-black text-pink-600">🐾 貓咪溫馨餵食小屋</h2>
+                    <p class="text-[10px] text-pink-400 font-bold">互動投餵點心，增加滿滿愛心好感度！</p>
+                </div>
+                <div class="flex items-center space-x-1 bg-pink-100 border-2 border-pink-300 px-3 py-1 rounded-full shadow-sm">
+                    <span class="text-pink-500 text-xs">❤️</span>
+                    <span id="affinityText" class="text-xs font-black text-pink-600">LV.1 好感度</span>
+                </div>
+            </div>
+
+            <!-- Feeding Interactive Play Stage -->
+            <div class="w-full flex-1 relative dream-card rounded-3xl my-2 overflow-hidden flex flex-col items-center justify-center p-4 border-2 border-pink-200">
+                <!-- Floating Hearts Overlay Container -->
+                <div id="heartContainer" class="absolute inset-0 pointer-events-none z-30"></div>
+
+                <!-- Active Cat Display Art -->
+                <div id="activeCatStage" class="relative w-40 h-40 flex items-center justify-center cursor-pointer animate-bounce-soft">
+                    <!-- Dynamic Cat SVG rendered here -->
+                </div>
+
+                <div class="mt-2 text-center">
+                    <h3 id="activeCatName" class="text-base font-black text-pink-700">星雲甜心龍貓</h3>
+                    <p id="catBubbleText" class="text-xs text-pink-600 font-bold bg-white/90 px-3.5 py-1.5 rounded-full border-2 border-pink-200 shadow mt-1">
+                        「喵～主人好！今天有美味的小零食嗎？」
+                    </p>
+                </div>
+
+                <!-- Select Cat Switcher -->
+                <div class="w-full flex items-center justify-center space-x-2 mt-3">
+                    <button id="prevCatBtn" class="w-7 h-7 rounded-full bg-white border border-pink-300 text-pink-500 flex items-center justify-center text-xs shadow-sm">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <span id="catSelectLabel" class="text-[11px] text-pink-600 font-black">貓咪 (1/1)</span>
+                    <button id="nextCatBtn" class="w-7 h-7 rounded-full bg-white border border-pink-300 text-pink-500 flex items-center justify-center text-xs shadow-sm">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Food Selection Deck -->
+            <div class="w-full dream-card rounded-2xl p-2.5 flex justify-around items-center border-2 border-pink-200">
+                <button data-food="cookie" class="feed-food-btn flex-1 flex flex-col items-center p-2 rounded-2xl bg-white border-2 border-pink-200 active:scale-90 transition mr-1 shadow-sm">
+                    <span class="text-2xl">🍪</span>
+                    <span class="text-[10px] font-black text-pink-600 mt-0.5">小餅乾</span>
+                    <span class="text-[9px] text-rose-500 font-bold">+5 愛心</span>
+                </button>
+                <button data-food="can" class="feed-food-btn flex-1 flex flex-col items-center p-2 rounded-2xl bg-white border-2 border-pink-200 active:scale-90 transition mx-1 shadow-sm">
+                    <span class="text-2xl">🥫</span>
+                    <span class="text-[10px] font-black text-pink-600 mt-0.5">豪華罐頭</span>
+                    <span class="text-[9px] text-rose-500 font-bold">+15 愛心</span>
+                </button>
+                <button data-food="milk" class="feed-food-btn flex-1 flex flex-col items-center p-2 rounded-2xl bg-white border-2 border-pink-200 active:scale-90 transition ml-1 shadow-sm">
+                    <span class="text-2xl">🥛</span>
+                    <span class="text-[10px] font-black text-pink-600 mt-0.5">新鮮牛奶</span>
+                    <span class="text-[9px] text-rose-500 font-bold">+10 愛心</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== SCREEN 4: QUEST CENTER ==================== -->
+        <section id="screenQuests" class="w-full h-full flex flex-col justify-between p-2 hidden z-10">
+            <!-- Quests Header -->
+            <div class="w-full dream-card rounded-2xl p-3 flex justify-between items-center border-2 border-pink-200">
+                <div>
+                    <h2 class="text-base font-black text-amber-600">📋 任務中心 (賺取金幣)</h2>
+                    <p class="text-[10px] text-pink-500 font-bold">完成可愛的萌寵任務，領取豐富金幣！</p>
+                </div>
+                <div class="text-xs font-black text-pink-500">
+                    <i class="fa-solid fa-list-check mr-1"></i>每日獎勵
+                </div>
+            </div>
+
+            <!-- List of Quests -->
+            <div id="questList" class="w-full flex-1 overflow-y-auto my-2 space-y-2 pr-1">
+                <!-- Dynamically rendered quest items -->
+            </div>
+
+            <div class="w-full text-center text-[10px] text-pink-500 font-bold py-1">
+                任務進度會隨遊玩過程自動累積哦！
+            </div>
+        </section>
+
+        <!-- ==================== SCREEN 5: COLLECTION GALLERY ==================== -->
         <section id="screenGallery" class="w-full h-full flex flex-col justify-between p-2 hidden z-10">
             <!-- Gallery Header -->
-            <div class="w-full dream-card rounded-2xl p-3 flex flex-col space-y-2">
+            <div class="w-full dream-card rounded-2xl p-3 flex flex-col space-y-2 border-2 border-pink-200">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="text-base font-black text-pink-300">夢幻貓咪圖鑑館</h2>
-                        <p class="text-[10px] text-purple-200/70">解鎖收集率：<span id="galleryPercentText" class="text-cyan-300 font-bold">0%</span></p>
+                        <h2 class="text-base font-black text-pink-600">📖 夢幻貓咪圖鑑館</h2>
+                        <p class="text-[10px] text-pink-500 font-bold">解鎖收集率：<span id="galleryPercentText" class="text-rose-500 font-black">0%</span></p>
                     </div>
-                    <button id="backHomeFromGalleryBtn" class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-bold text-xs active:scale-90">
+                    <button id="backHomeFromGalleryBtn" class="px-3 py-1 rounded-full bg-white border border-pink-300 text-pink-600 font-black text-xs active:scale-90 shadow-sm">
                         <i class="fa-solid fa-xmark mr-1"></i>關閉
                     </button>
                 </div>
 
                 <!-- Rarity Filter Bar -->
                 <div class="flex justify-between space-x-1 pt-1" id="filterBar">
-                    <button data-rarity="ALL" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-pink-500 text-white">ALL</button>
-                    <button data-rarity="SSR" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-pink-300">SSR</button>
-                    <button data-rarity="SR" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-purple-300">SR</button>
-                    <button data-rarity="R" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-cyan-300">R</button>
-                    <button data-rarity="N" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-emerald-300">N</button>
+                    <button data-rarity="ALL" class="filter-btn flex-1 py-1 rounded-xl text-xs font-black bg-pink-500 text-white shadow">ALL</button>
+                    <button data-rarity="SSR" class="filter-btn flex-1 py-1 rounded-xl text-xs font-black bg-white border border-pink-200 text-pink-500">SSR</button>
+                    <button data-rarity="SR" class="filter-btn flex-1 py-1 rounded-xl text-xs font-black bg-white border border-pink-200 text-purple-500">SR</button>
+                    <button data-rarity="R" class="filter-btn flex-1 py-1 rounded-xl text-xs font-black bg-white border border-pink-200 text-amber-500">R</button>
+                    <button data-rarity="N" class="filter-btn flex-1 py-1 rounded-xl text-xs font-black bg-white border border-pink-200 text-emerald-500">N</button>
                 </div>
             </div>
 
@@ -274,12 +411,37 @@
             </div>
 
             <!-- Footer Reset Button -->
-            <div class="w-full flex justify-between items-center px-2 py-1 text-[11px] text-slate-400">
+            <div class="w-full flex justify-between items-center px-2 py-1 text-[11px] text-pink-500 font-bold">
                 <span id="galleryCountDetail">已解鎖: 0 / 12</span>
-                <button id="resetDataBtn" class="text-slate-500 hover:text-red-400 underline">重置所有進度</button>
+                <button id="resetDataBtn" class="text-pink-400 hover:text-red-500 underline">重置所有進度</button>
             </div>
         </section>
     </main>
+
+    <!-- BOTTOM GLOBAL NAVIGATION BAR -->
+    <nav class="w-full bg-white/90 border-t-2 border-pink-200 rounded-2xl px-2 py-1.5 flex justify-around items-center z-20 shadow-lg">
+        <button id="navHome" class="nav-tab-btn flex flex-col items-center text-pink-500 font-black">
+            <i class="fa-solid fa-house text-base"></i>
+            <span class="text-[10px] font-bold mt-0.5">首頁</span>
+        </button>
+        <button id="navGacha" class="nav-tab-btn flex flex-col items-center text-pink-300 font-bold">
+            <i class="fa-solid fa-gamepad text-base"></i>
+            <span class="text-[10px] font-bold mt-0.5">扭蛋機</span>
+        </button>
+        <button id="navFeed" class="nav-tab-btn flex flex-col items-center text-pink-300 font-bold">
+            <i class="fa-solid fa-fish text-base"></i>
+            <span class="text-[10px] font-bold mt-0.5">餵食小屋</span>
+        </button>
+        <button id="navQuests" class="nav-tab-btn flex flex-col items-center text-pink-300 font-bold relative">
+            <i class="fa-solid fa-list-check text-base"></i>
+            <span class="text-[10px] font-bold mt-0.5">任務</span>
+            <span id="questBadgeDot" class="absolute top-0 right-1 w-2.5 h-2.5 rounded-full bg-amber-400 hidden animate-ping"></span>
+        </button>
+        <button id="navGallery" class="nav-tab-btn flex flex-col items-center text-pink-300 font-bold">
+            <i class="fa-solid fa-book-open text-base"></i>
+            <span class="text-[10px] font-bold mt-0.5">圖鑑</span>
+        </button>
+    </nav>
 
     <!-- MODAL 1: RULES & INSTRUCTIONS -->
     <div id="rulesModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-4 hidden">
@@ -288,11 +450,10 @@
             <h3 class="text-lg font-black text-pink-200 mb-2">遊戲玩法與說明</h3>
             
             <div class="text-xs text-purple-100/90 text-left space-y-2 mb-4 leading-relaxed">
-                <p>1. 🪙 <b>獲取金幣</b>：在扭蛋畫面點擊「餵罐頭 +10」即可獲得金幣。</p>
+                <p>1. 📋 <b>破任務賺金幣</b>：前往「任務中心」完成簽到與目標即可領取豐富金幣！</p>
                 <p>2. 🎰 <b>旋轉扭蛋</b>：每次消耗 50 金幣，旋轉轉盤或按鈕掉出扭蛋。</p>
-                <p>3. 💥 <b>點擊開蛋</b>：扭蛋掉入出口後，點擊扭蛋殼即可揭曉貓咪！</p>
+                <p>3. 🐟 <b>餵食貓咪</b>：前往「餵食小屋」投餵美味小零食，提升貓咪好感度！</p>
                 <p>4. ⭐ <b>幸運保底</b>：每抽一次累積 10 點幸運值，滿 100 點下次必定獲得 SR 或 SSR！</p>
-                <p>5. 📖 <b>解鎖圖鑑</b>：收集全部 12 款可愛貓咪，點擊圖鑑卡片可看詳情。</p>
             </div>
 
             <button id="closeRulesBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-sm">
@@ -366,6 +527,22 @@
                 gain.connect(this.ctx.destination);
                 osc.start(now);
                 osc.stop(now + 0.12);
+            }
+            playPurr() {
+                if (this.muted) return;
+                this.init();
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.exponentialRampToValueAtTime(600, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.18);
             }
             playCrank() {
                 if (this.muted) return;
@@ -524,15 +701,31 @@
             }
         ];
 
-        // --- 3. App State & LocalStorage ---
+        // --- 3. Quest Database System ---
+        const QUESTS_DATABASE = [
+            { id: 'daily_login', title: '每日登入遊戲', reward: 100, target: 1, type: 'login' },
+            { id: 'feed_cat_1', title: '餵食一次貓咪', reward: 50, target: 1, type: 'feed' },
+            { id: 'spin_gacha_5', title: '扭蛋 5 次', reward: 120, target: 5, type: 'spin' }
+        ];
+
+        // --- 4. App State & LocalStorage ---
         let state = {
             coins: 150,
             pity: 0,
-            unlocked: {}, // { cat_id: count }
+            unlocked: { 'n_orange_cat': 1 }, // Default start cat
+            affinityLV: 1,
+            affinityExp: 0,
+            questsProgress: {
+                daily_login: 1,
+                feed_cat_1: 0,
+                spin_gacha_5: 0
+            },
+            claimedQuests: {},
             isSpinning: false,
             hasCapsuleInExit: false,
             currentExitCat: null,
-            currentFilter: 'ALL'
+            currentFilter: 'ALL',
+            selectedCatIndex: 0
         };
 
         function loadState() {
@@ -542,7 +735,11 @@
                     const parsed = JSON.parse(saved);
                     state.coins = parsed.coins ?? 150;
                     state.pity = parsed.pity ?? 0;
-                    state.unlocked = parsed.unlocked ?? {};
+                    state.unlocked = parsed.unlocked ?? { 'n_orange_cat': 1 };
+                    state.affinityLV = parsed.affinityLV ?? 1;
+                    state.affinityExp = parsed.affinityExp ?? 0;
+                    state.questsProgress = parsed.questsProgress ?? { daily_login: 1, feed_cat_1: 0, spin_gacha_5: 0 };
+                    state.claimedQuests = parsed.claimedQuests ?? {};
                 } catch (e) { console.error(e); }
             }
             updateUI();
@@ -552,14 +749,19 @@
             localStorage.setItem('dream_cat_gacha_save', JSON.stringify({
                 coins: state.coins,
                 pity: state.pity,
-                unlocked: state.unlocked
+                unlocked: state.unlocked,
+                affinityLV: state.affinityLV,
+                affinityExp: state.affinityExp,
+                questsProgress: state.questsProgress,
+                claimedQuests: state.claimedQuests
             }));
             updateUI();
         }
 
-        // --- 4. Navigation & Screens ---
+        // --- 5. Navigation & Screens ---
         function showScreen(screenId) {
-            ['screenHome', 'screenGacha', 'screenGallery'].forEach(id => {
+            const screens = ['screenHome', 'screenGacha', 'screenFeed', 'screenQuests', 'screenGallery'];
+            screens.forEach(id => {
                 const el = document.getElementById(id);
                 if (id === screenId) {
                     el.classList.remove('hidden');
@@ -567,13 +769,34 @@
                     el.classList.add('hidden');
                 }
             });
+
+            // Update bottom active tab states
+            const tabMap = {
+                'screenHome': 'navHome',
+                'screenGacha': 'navGacha',
+                'screenFeed': 'navFeed',
+                'screenQuests': 'navQuests',
+                'screenGallery': 'navGallery'
+            };
+
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+                btn.className = 'nav-tab-btn flex flex-col items-center text-slate-400';
+            });
+            if (tabMap[screenId]) {
+                document.getElementById(tabMap[screenId]).className = 'nav-tab-btn flex flex-col items-center text-pink-400 font-bold';
+            }
+
             if (screenId === 'screenGacha') {
                 resizeCanvas();
                 initBalls();
+            } else if (screenId === 'screenFeed') {
+                renderFeedingStage();
+            } else if (screenId === 'screenQuests') {
+                renderQuests();
             }
         }
 
-        // --- 5. Gacha Machine Physics Canvas Animation ---
+        // --- 6. Gacha Machine Physics Canvas Animation ---
         const canvas = document.getElementById('gachaCanvas');
         const ctx = canvas.getContext('2d');
         let balls = [];
@@ -660,13 +883,12 @@
             }, 750);
         }
 
-        // --- 6. Gacha Logic with Pity Mechanism ---
+        // --- 7. Gacha Logic with Pity Mechanism ---
         function drawRandomCat() {
             let targetRarity = 'N';
-            // Pity check: if pity reaches 100, guarantee SR or SSR!
             if (state.pity >= 100) {
                 targetRarity = Math.random() < 0.35 ? 'SSR' : 'SR';
-                state.pity = 0; // reset pity
+                state.pity = 0;
             } else {
                 const rand = Math.random() * 100;
                 if (rand < 10) targetRarity = 'SSR';      // 10%
@@ -684,12 +906,16 @@
         function triggerPull() {
             if (state.isSpinning) return;
             if (state.coins < 50) {
-                alert('金幣不足！請點擊右上角「餵罐頭 +10」賺取金幣！');
+                alert('金幣不足！請點擊「任務中心」或完成任務賺取金幣！');
                 return;
             }
 
             state.coins -= 50;
             state.isSpinning = true;
+
+            // Quest progress
+            state.questsProgress.spin_gacha_5 = (state.questsProgress.spin_gacha_5 || 0) + 1;
+
             saveState();
 
             // Sound & Crank Animation
@@ -732,7 +958,13 @@
             audio.playPop();
 
             // Record Collection
+            const isFirstUnlock = !state.unlocked[cat.id];
             state.unlocked[cat.id] = (state.unlocked[cat.id] || 0) + 1;
+
+            if (isFirstUnlock) {
+                state.questsProgress.unlock_cats_3 = Object.keys(state.unlocked).length;
+            }
+
             saveState();
 
             // Clear Tray
@@ -777,7 +1009,126 @@
             }
         }
 
-        // --- 7. Gallery Render & Filters ---
+        // --- 8. Interactive Feeding Haven System ---
+        function getUnlockedCatList() {
+            return CAT_DATABASE.filter(c => (state.unlocked[c.id] || 0) > 0);
+        }
+
+        function renderFeedingStage() {
+            const unlockedCats = getUnlockedCatList();
+            if (unlockedCats.length === 0) return;
+
+            if (state.selectedCatIndex >= unlockedCats.length) {
+                state.selectedCatIndex = 0;
+            }
+
+            const activeCat = unlockedCats[state.selectedCatIndex];
+            document.getElementById('activeCatStage').innerHTML = activeCat.svg;
+            document.getElementById('activeCatName').innerText = activeCat.name;
+            document.getElementById('catSelectLabel').innerText = `貓咪 (${state.selectedCatIndex + 1}/${unlockedCats.length})`;
+            document.getElementById('affinityText').innerText = `LV.${state.affinityLV} 好感度 (${state.affinityExp}❤️)`;
+        }
+
+        function feedActiveCat(foodType) {
+            const expGainMap = { cookie: 5, can: 15, milk: 10 };
+            const gain = expGainMap[foodType] || 5;
+
+            state.affinityExp += gain;
+            if (state.affinityExp >= 50) {
+                state.affinityLV += 1;
+                state.affinityExp -= 50;
+                audio.playVictory(true);
+            } else {
+                audio.playPurr();
+            }
+
+            // Quests
+            state.questsProgress.feed_cat_1 = (state.questsProgress.feed_cat_1 || 0) + 1;
+            saveState();
+
+            // Heart Animation Float
+            const container = document.getElementById('heartContainer');
+            const heart = document.createElement('div');
+            heart.className = 'absolute text-2xl text-pink-400 animate-heart';
+            heart.style.left = `${Math.random() * 60 + 20}%`;
+            heart.style.top = '50%';
+            heart.innerHTML = '❤️';
+            container.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 1000);
+
+            // Change Speech Bubble
+            const comments = [
+                '「好香好美味！好感度 UP❤️」',
+                '「喵嗷～最喜歡主人了！」',
+                '「吃得好飽，等等來睡個午覺吧～」',
+                '「謝謝主人投餵大餐！」'
+            ];
+            document.getElementById('catBubbleText').innerText = comments[Math.floor(Math.random() * comments.length)];
+
+            renderFeedingStage();
+        }
+
+        // --- 9. Quest Center Render ---
+        function renderQuests() {
+            const container = document.getElementById('questList');
+            container.innerHTML = '';
+
+            let hasClaimable = false;
+
+            QUESTS_DATABASE.forEach(q => {
+                const current = Math.min(q.target, state.questsProgress[q.id] || 0);
+                const isFinished = current >= q.target;
+                const isClaimed = !!state.claimedQuests[q.id];
+
+                if (isFinished && !isClaimed) hasClaimable = true;
+
+                const item = document.createElement('div');
+                item.className = 'dream-card rounded-2xl p-3 flex justify-between items-center shadow-sm border-2 border-pink-200';
+                item.innerHTML = `
+                    <div class="flex-1 pr-2">
+                        <div class="flex items-center space-x-1.5 mb-1">
+                            <span class="text-xs font-black text-pink-700">${q.title}</span>
+                            <span class="text-[10px] text-amber-700 font-black bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300 shadow-sm">+${q.reward} 金幣</span>
+                        </div>
+                        <div class="w-full bg-pink-100 h-2.5 rounded-full overflow-hidden border border-pink-300">
+                            <div class="bg-gradient-to-r from-amber-400 to-pink-500 h-full transition-all duration-300" style="width: ${(current/q.target)*100}%"></div>
+                        </div>
+                        <div class="text-[10px] font-bold text-pink-500 mt-1">進度: ${current} / ${q.target}</div>
+                    </div>
+                    <div>
+                        ${isClaimed ? `
+                            <button disabled class="px-3.5 py-1.5 rounded-xl bg-pink-100 text-pink-400 text-xs font-bold border border-pink-200">已領取</button>
+                        ` : isFinished ? `
+                            <button data-questid="${q.id}" class="claim-quest-btn px-3.5 py-1.5 rounded-xl btn-jelly-amber text-slate-900 text-xs font-black active:scale-90 transition">領取</button>
+                        ` : `
+                            <button disabled class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-400 text-xs font-bold border border-slate-200">未完成</button>
+                        `}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            // Quest badge dot indicator
+            document.getElementById('questBadgeDot').classList.toggle('hidden', !hasClaimable);
+
+            // Bind Claim Buttons
+            document.querySelectorAll('.claim-quest-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const qId = e.currentTarget.getAttribute('data-questid');
+                    const qObj = QUESTS_DATABASE.find(item => item.id === qId);
+                    if (qObj) {
+                        state.coins += qObj.reward;
+                        state.claimedQuests[qId] = true;
+                        audio.playCoin();
+                        saveState();
+                        renderQuests();
+                    }
+                });
+            });
+        }
+
+        // --- 10. Gallery Render & Filters ---
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
@@ -857,7 +1208,7 @@
             audio.playPop();
         }
 
-        // --- 8. Synchronize UI State ---
+        // --- 11. Synchronize UI State ---
         function updateUI() {
             document.getElementById('globalCoinCount').innerText = state.coins;
             document.getElementById('pityBar').style.width = `${state.pity}%`;
@@ -867,9 +1218,12 @@
             renderGallery();
         }
 
-        // --- 9. Event Listeners ---
-        // Navigation Buttons
+        // --- 12. Event Listeners ---
+        // Top Nav & Home Actions
         document.getElementById('goGachaBtn').addEventListener('click', () => showScreen('screenGacha'));
+        document.getElementById('goFeedBtn').addEventListener('click', () => showScreen('screenFeed'));
+        document.getElementById('goQuestsBtn').addEventListener('click', () => showScreen('screenQuests'));
+        document.getElementById('navQuestsQuickBtn').addEventListener('click', () => showScreen('screenQuests'));
         document.getElementById('goGalleryFromHomeBtn').addEventListener('click', () => {
             renderGallery();
             showScreen('screenGallery');
@@ -881,11 +1235,33 @@
         document.getElementById('backHomeFromGachaBtn').addEventListener('click', () => showScreen('screenHome'));
         document.getElementById('backHomeFromGalleryBtn').addEventListener('click', () => showScreen('screenHome'));
 
-        // Interaction: Feed Coin (+10)
-        document.getElementById('feedCoinBtn').addEventListener('click', () => {
-            state.coins += 10;
-            audio.playCoin();
-            saveState();
+        // Bottom Tab Nav Bar
+        document.getElementById('navHome').addEventListener('click', () => showScreen('screenHome'));
+        document.getElementById('navGacha').addEventListener('click', () => showScreen('screenGacha'));
+        document.getElementById('navFeed').addEventListener('click', () => showScreen('screenFeed'));
+        document.getElementById('navQuests').addEventListener('click', () => showScreen('screenQuests'));
+        document.getElementById('navGallery').addEventListener('click', () => showScreen('screenGallery'));
+
+        // Feeding Actions
+        document.querySelectorAll('.feed-food-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const food = e.currentTarget.getAttribute('data-food');
+                feedActiveCat(food);
+            });
+        });
+
+        document.getElementById('prevCatBtn').addEventListener('click', () => {
+            const list = getUnlockedCatList();
+            if (list.length === 0) return;
+            state.selectedCatIndex = (state.selectedCatIndex - 1 + list.length) % list.length;
+            renderFeedingStage();
+        });
+
+        document.getElementById('nextCatBtn').addEventListener('click', () => {
+            const list = getUnlockedCatList();
+            if (list.length === 0) return;
+            state.selectedCatIndex = (state.selectedCatIndex + 1) % list.length;
+            renderFeedingStage();
         });
 
         // Pull Actions
@@ -930,7 +1306,11 @@
                 localStorage.removeItem('dream_cat_gacha_save');
                 state.coins = 150;
                 state.pity = 0;
-                state.unlocked = {};
+                state.unlocked = { 'n_orange_cat': 1 };
+                state.affinityLV = 1;
+                state.affinityExp = 0;
+                state.questsProgress = { daily_login: 1, feed_cat_1: 0, spin_gacha_5: 0 };
+                state.claimedQuests = {};
                 saveState();
             }
         });
