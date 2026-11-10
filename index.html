@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>賽博萌寵扭蛋機 - Cyber Pets Gachapon</title>
+    <title>夢幻貓咪扭蛋機 - Dream Cat Gachapon</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -17,7 +17,7 @@
             touch-action: manipulation;
         }
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            background: linear-gradient(180deg, #2b1055 0%, #591a73 50%, #75225b 100%);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             overflow: hidden;
             margin: 0;
@@ -27,20 +27,20 @@
             color: #fff;
         }
 
-        /* Neon & Glassmorphism Effects */
-        .neon-title {
-            text-shadow: 0 0 10px rgba(236, 72, 153, 0.8), 0 0 20px rgba(168, 85, 247, 0.6);
+        /* Dreamy Neon & Soft Glass Styling */
+        .dream-title {
+            text-shadow: 0 0 12px rgba(244, 114, 182, 0.9), 0 0 24px rgba(192, 132, 252, 0.7);
         }
-        .neon-box {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(236, 72, 153, 0.2);
+        .dream-card {
+            background: rgba(30, 27, 75, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(244, 114, 182, 0.3);
         }
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .machine-box {
+            box-shadow: 0 0 30px rgba(244, 114, 182, 0.35), inset 0 0 20px rgba(192, 132, 252, 0.25);
         }
 
-        /* 3D Crank Knob Simulation */
+        /* Crank Handle Animation */
         .crank-knob {
             transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             transform-origin: center center;
@@ -49,181 +49,298 @@
             transform: rotate(360deg);
         }
 
-        /* Modal Animations */
+        /* Machine Shake Animation */
+        @keyframes machineShake {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            20% { transform: translateY(-3px) rotate(-1deg); }
+            40% { transform: translateY(3px) rotate(1deg); }
+            60% { transform: translateY(-2px) rotate(-0.5deg); }
+            80% { transform: translateY(2px) rotate(0.5deg); }
+        }
+        .shaking {
+            animation: machineShake 0.5s ease-in-out;
+        }
+
+        /* Modal Pop Animations */
         @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
+            0% { transform: scale(0.6); opacity: 0; }
             80% { transform: scale(1.05); }
             100% { transform: scale(1); opacity: 1; }
         }
         .animate-pop-in {
-            animation: popIn 0.4s ease-out forwards;
+            animation: popIn 0.35s ease-out forwards;
         }
 
-        /* Capsule Bounce Animation */
+        /* Drop Capsule Animation */
         @keyframes capsuleDrop {
-            0% { transform: translateY(-120px) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
             60% { transform: translateY(0px) rotate(180deg); opacity: 1; }
-            75% { transform: translateY(-15px) rotate(220deg); }
-            90% { transform: translateY(0px) rotate(240deg); }
-            100% { transform: translateY(-4px) rotate(240deg); }
+            75% { transform: translateY(-12px) rotate(210deg); }
+            90% { transform: translateY(0px) rotate(230deg); }
+            100% { transform: translateY(-3px) rotate(230deg); }
         }
         .animate-capsule-drop {
-            animation: capsuleDrop 0.8s ease-out forwards;
+            animation: capsuleDrop 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* Pulsing Glow */
+        /* Pulsing Glow Effect */
         @keyframes pulseGlow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(236,72,153,0.6)); }
-            50% { filter: drop-shadow(0 0 20px rgba(168,85,247,0.9)); }
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(244,114,182,0.6)); }
+            50% { filter: drop-shadow(0 0 22px rgba(192,132,252,0.95)); }
         }
         .pulse-glow {
-            animation: pulseGlow 2s infinite;
+            animation: pulseGlow 2.2s infinite;
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-between p-3 relative h-full">
+<body class="flex flex-col items-center justify-between p-2 relative h-full max-w-md mx-auto">
 
-    <!-- Top Navigation Header -->
-    <header class="w-full max-w-md flex justify-between items-center z-10 pt-1 px-2">
-        <!-- Coin Counter -->
-        <div class="flex items-center space-x-2 bg-slate-900/80 border border-amber-500/40 px-3 py-1.5 rounded-full shadow-lg">
-            <i class="fa-solid fa-coins text-amber-400 text-lg animate-bounce"></i>
-            <span id="coinCount" class="font-extrabold text-amber-300 text-lg tracking-wider">0</span>
-            <button id="addCoinBtn" class="ml-1 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs px-2 py-0.5 rounded-full active:scale-95 shadow">
-                +100
-            </button>
+    <!-- TOP GLOBAL HUD HEADER -->
+    <header class="w-full flex justify-between items-center z-20 pt-1 px-3">
+        <!-- Coin Counter HUD -->
+        <div class="flex items-center space-x-2 bg-slate-900/80 border border-amber-400/50 px-3.5 py-1.5 rounded-full shadow-lg">
+            <i class="fa-solid fa-coins text-amber-300 text-base animate-bounce"></i>
+            <span id="globalCoinCount" class="font-extrabold text-amber-300 text-base tracking-wider">0</span>
         </div>
 
-        <!-- Title -->
-        <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-400 neon-title">
-            CYBER GACHA
+        <!-- Header Title -->
+        <h1 class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-200 to-indigo-300 dream-title">
+            夢幻貓咪扭蛋機
         </h1>
 
-        <!-- Gallery / Reset Buttons -->
+        <!-- Mute & Rules Controls -->
         <div class="flex space-x-2">
-            <button id="galleryBtn" class="w-10 h-10 rounded-full bg-slate-800/90 border border-purple-500/50 text-purple-300 flex items-center justify-center active:scale-90 transition shadow-[0_0_10px_rgba(168,85,247,0.3)]">
-                <i class="fa-solid fa-book-open text-lg"></i>
+            <button id="helpBtn" class="w-9 h-9 rounded-full bg-slate-900/80 border border-pink-400/50 text-pink-300 flex items-center justify-center active:scale-90 transition">
+                <i class="fa-solid fa-circle-question text-base"></i>
             </button>
-            <button id="soundToggleBtn" class="w-10 h-10 rounded-full bg-slate-800/90 border border-cyan-500/50 text-cyan-300 flex items-center justify-center active:scale-90 transition">
-                <i class="fa-solid fa-volume-high text-lg" id="soundIcon"></i>
+            <button id="soundToggleBtn" class="w-9 h-9 rounded-full bg-slate-900/80 border border-cyan-400/50 text-cyan-300 flex items-center justify-center active:scale-90 transition">
+                <i class="fa-solid fa-volume-high text-base" id="soundIcon"></i>
             </button>
         </div>
     </header>
 
-    <!-- Main Arcade Gachapon Machine Area -->
-    <div class="relative w-full max-w-md flex-1 flex flex-col items-center justify-center my-2">
-        <!-- Machine Container -->
-        <div class="relative w-72 sm:w-80 h-[430px] bg-gradient-to-b from-purple-900/90 via-slate-900 to-pink-950/90 border-4 border-purple-500/60 rounded-3xl neon-box flex flex-col items-center p-3 overflow-hidden">
-            
-            <!-- Machine Dome Glass (Canvas Window) -->
-            <div class="relative w-full h-56 rounded-2xl bg-gradient-to-b from-slate-900/60 to-purple-950/40 border-2 border-purple-400/40 overflow-hidden shadow-inner flex items-center justify-center">
-                <canvas id="gachaCanvas" class="w-full h-full"></canvas>
-                <!-- Glass Glare Highlight -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none"></div>
+    <!-- SCREEN CONTAINER -->
+    <main class="w-full flex-1 relative my-2 overflow-hidden flex flex-col justify-center items-center">
+
+        <!-- ==================== SCREEN 1: HOME SCREEN ==================== -->
+        <section id="screenHome" class="w-full h-full flex flex-col items-center justify-between p-4 z-10">
+            <!-- Hero Artwork Banner -->
+            <div class="w-full flex-1 flex flex-col items-center justify-center text-center">
+                <div class="relative w-44 h-44 rounded-full bg-gradient-to-tr from-pink-500/40 via-purple-500/30 to-indigo-500/40 border-4 border-pink-300/40 flex items-center justify-center pulse-glow mb-4">
+                    <svg viewBox="0 0 100 100" class="w-32 h-32">
+                        <polygon points="25,25 35,50 15,45" fill="#f472b6"/>
+                        <polygon points="75,25 65,50 85,45" fill="#f472b6"/>
+                        <circle cx="50" cy="55" r="28" fill="#fb7299"/>
+                        <circle cx="40" cy="50" r="4" fill="#fff"/>
+                        <circle cx="60" cy="50" r="4" fill="#fff"/>
+                        <path d="M44 63 Q50 68 56 63" stroke="#fff" stroke-width="2.5" fill="none"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-black text-pink-200 mb-1 tracking-wide">進入貓咪夢幻樂園</h2>
+                <p class="text-xs text-purple-200/80 max-w-xs leading-relaxed">
+                    轉動扭蛋機解鎖 12 款珍稀貓咪，收集圖鑑、餵食罐頭賺取金幣，體驗保底抽獎樂趣！
+                </p>
             </div>
 
-            <!-- Machine Control Deck -->
-            <div class="w-full flex-1 flex flex-col items-center justify-between mt-3 px-3">
-                <!-- Coin Slot & Rotary Knob Row -->
-                <div class="w-full flex justify-between items-center bg-slate-900/90 border border-slate-700 rounded-2xl p-2.5 shadow-md">
-                    <!-- Coin Slot -->
-                    <div class="flex flex-col items-center space-y-1">
-                        <span class="text-[10px] text-pink-400 font-bold uppercase tracking-wider">COIN SLOT</span>
-                        <div class="w-12 h-3 bg-slate-950 border border-slate-600 rounded-full flex items-center justify-center shadow-inner">
-                            <div class="w-8 h-1 bg-amber-400/80 rounded-full"></div>
-                        </div>
-                        <span class="text-[11px] text-amber-300 font-black">10 🪙 / PULL</span>
-                    </div>
+            <!-- Dashboard Summary Card -->
+            <div class="w-full dream-card rounded-2xl p-4 mb-4 flex justify-around items-center text-center">
+                <div>
+                    <div class="text-[11px] text-purple-300 font-bold uppercase">總收集卡牌</div>
+                    <div id="homeCollectedCount" class="text-xl font-black text-pink-300">0 / 12</div>
+                </div>
+                <div class="w-px h-8 bg-purple-500/30"></div>
+                <div>
+                    <div class="text-[11px] text-purple-300 font-bold uppercase">圖鑑達成率</div>
+                    <div id="homePercent" class="text-xl font-black text-cyan-300">0%</div>
+                </div>
+                <div class="w-px h-8 bg-purple-500/30"></div>
+                <div>
+                    <div class="text-[11px] text-purple-300 font-bold uppercase">幸運保底值</div>
+                    <div id="homePity" class="text-xl font-black text-amber-300">0 / 100</div>
+                </div>
+            </div>
 
-                    <!-- Interactive Rotary Knob -->
-                    <div id="crankArea" class="relative w-20 h-20 flex items-center justify-center cursor-pointer">
-                        <div id="crankKnob" class="crank-knob w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 via-purple-600 to-indigo-700 border-4 border-slate-900 shadow-[0_0_15px_rgba(236,72,153,0.5)] flex items-center justify-center">
-                            <!-- Knob Wings/Bar -->
-                            <div class="w-12 h-4 bg-slate-200 border border-slate-400 rounded-full shadow flex items-center justify-between px-1">
-                                <div class="w-2 h-2 rounded-full bg-slate-400"></div>
-                                <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+            <!-- Start & Gallery Action Buttons -->
+            <div class="w-full flex flex-col space-y-3">
+                <button id="goGachaBtn" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-black text-base uppercase tracking-wider shadow-lg active:scale-95 transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-gamepad text-lg"></i>
+                    <span>開始轉扭蛋 (50 🪙)</span>
+                </button>
+
+                <button id="goGalleryFromHomeBtn" class="w-full py-3 rounded-2xl bg-slate-900/80 border border-purple-400/40 text-purple-200 font-bold text-sm tracking-wider active:scale-95 transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>瀏覽貓咪圖鑑館</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== SCREEN 2: GACHA ROOM ==================== -->
+        <section id="screenGacha" class="w-full h-full flex flex-col items-center justify-between p-2 hidden z-10">
+            <!-- Machine Top Status Bar -->
+            <div class="w-full dream-card rounded-xl px-3 py-1.5 flex justify-between items-center text-xs">
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-purple-300 font-bold">幸運值 (保底):</span>
+                    <div class="w-24 h-2.5 bg-slate-950 rounded-full overflow-hidden border border-purple-400/40">
+                        <div id="pityBar" class="h-full bg-gradient-to-r from-amber-400 to-pink-500 w-0 transition-all duration-300"></div>
+                    </div>
+                    <span id="pityText" class="text-amber-300 font-bold">0/100</span>
+                </div>
+                <button id="feedCoinBtn" class="bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg active:scale-90 transition shadow flex items-center space-x-1">
+                    <i class="fa-solid fa-cookie"></i>
+                    <span>餵罐頭 +10</span>
+                </button>
+            </div>
+
+            <!-- Arcade Machine Container -->
+            <div id="machineBody" class="relative w-full max-w-[310px] h-[390px] bg-gradient-to-b from-purple-900/90 via-slate-900 to-pink-950/90 border-4 border-pink-400/60 rounded-3xl machine-box flex flex-col items-center p-2.5 my-auto">
+                <!-- Machine Glass Globe (Canvas Window) -->
+                <div class="relative w-full h-52 rounded-2xl bg-gradient-to-b from-slate-900/70 to-purple-950/50 border-2 border-purple-300/40 overflow-hidden shadow-inner flex items-center justify-center">
+                    <canvas id="gachaCanvas" class="w-full h-full"></canvas>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 pointer-events-none"></div>
+                </div>
+
+                <!-- Controls & Crank Plate -->
+                <div class="w-full flex-1 flex flex-col items-center justify-between mt-2 px-2">
+                    <!-- Rotary Knob Deck -->
+                    <div class="w-full flex justify-between items-center bg-slate-950/80 border border-purple-400/30 rounded-2xl p-2 shadow-inner">
+                        <div class="flex flex-col items-start pl-1">
+                            <span class="text-[10px] text-pink-300 font-bold uppercase tracking-wider">投幣口</span>
+                            <span class="text-xs text-amber-300 font-black">50 🪙 / 抽</span>
+                            <span class="text-[9px] text-purple-300/80">點轉盤或按鈕發動</span>
+                        </div>
+
+                        <!-- Interactive Crank Handle -->
+                        <div id="crankArea" class="relative w-16 h-16 flex items-center justify-center cursor-pointer">
+                            <div id="crankKnob" class="crank-knob w-14 h-14 rounded-full bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 border-4 border-slate-900 shadow-[0_0_12px_rgba(244,114,182,0.6)] flex items-center justify-center">
+                                <div class="w-10 h-3 bg-slate-200 rounded-full shadow flex items-center justify-between px-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-slate-500"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Capsule Exit Tray -->
-                <div class="w-full h-16 bg-slate-950 border-2 border-slate-800 rounded-2xl relative flex items-center justify-center overflow-hidden shadow-inner">
-                    <span class="text-[10px] text-slate-600 font-bold tracking-widest uppercase absolute top-1">EXIT TRAY</span>
-                    <!-- Dropped Capsule Slot Container -->
-                    <div id="exitTray" class="w-full h-full flex items-center justify-center relative cursor-pointer z-10">
-                        <!-- Dropped capsule renders here dynamically -->
+                    <!-- Exit Tray -->
+                    <div class="w-full h-14 bg-slate-950 border-2 border-slate-800 rounded-xl relative flex items-center justify-center overflow-hidden shadow-inner mt-1">
+                        <span class="text-[9px] text-slate-500 font-bold tracking-widest uppercase absolute top-0.5">扭蛋取出口 (TAP BALL)</span>
+                        <div id="exitTray" class="w-full h-full flex items-center justify-center relative cursor-pointer z-10">
+                            <!-- Dropped capsule renders here -->
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Free / Quick Pull Button -->
-            <button id="pullBtn" class="mt-2 w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 text-white font-black text-sm uppercase tracking-wider shadow-lg active:scale-95 transition flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-arrows-rotate"></i>
-                <span>SPIN GACHAPON</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Bottom Stat Status Bar -->
-    <footer class="w-full max-w-md flex justify-between items-center text-xs text-slate-400 px-3 py-1 bg-slate-900/60 rounded-xl border border-slate-800">
-        <div>Collected: <span id="galleryProgressText" class="text-pink-400 font-bold">0 / 12 (0%)</span></div>
-        <button id="resetDataBtn" class="text-slate-500 hover:text-red-400 underline">Reset Progress</button>
-    </footer>
-
-    <!-- MODAL: COLLECTION GALLERY -->
-    <div id="galleryModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-30 flex flex-col items-center justify-between p-4 hidden">
-        <!-- Gallery Header -->
-        <div class="w-full max-w-md flex justify-between items-center border-b border-slate-800 pb-3">
-            <div>
-                <h2 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">CYBER PETS INDEX</h2>
-                <p class="text-xs text-slate-400">圖鑑收集率 <span id="galleryPercent" class="text-pink-400 font-bold">0%</span></p>
+            <!-- Bottom Navigation Bar for Gacha Screen -->
+            <div class="w-full flex space-x-2">
+                <button id="backHomeFromGachaBtn" class="w-1/3 py-2.5 rounded-xl bg-slate-900/80 border border-slate-700 text-slate-300 font-bold text-xs active:scale-95">
+                    <i class="fa-solid fa-house mr-1"></i>首頁
+                </button>
+                <button id="pullBtn" class="w-1/3 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-black text-xs uppercase tracking-wider shadow-md active:scale-95">
+                    <i class="fa-solid fa-arrows-rotate mr-1"></i>旋轉 (50🪙)
+                </button>
+                <button id="goGalleryFromGachaBtn" class="w-1/3 py-2.5 rounded-xl bg-slate-900/80 border border-purple-400/40 text-purple-200 font-bold text-xs active:scale-95">
+                    <i class="fa-solid fa-book-open mr-1"></i>圖鑑
+                </button>
             </div>
-            <button id="closeGalleryBtn" class="w-9 h-9 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center active:scale-90">
-                <i class="fa-solid fa-xmark text-lg"></i>
+        </section>
+
+        <!-- ==================== SCREEN 3: COLLECTION GALLERY ==================== -->
+        <section id="screenGallery" class="w-full h-full flex flex-col justify-between p-2 hidden z-10">
+            <!-- Gallery Header -->
+            <div class="w-full dream-card rounded-2xl p-3 flex flex-col space-y-2">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-base font-black text-pink-300">夢幻貓咪圖鑑館</h2>
+                        <p class="text-[10px] text-purple-200/70">解鎖收集率：<span id="galleryPercentText" class="text-cyan-300 font-bold">0%</span></p>
+                    </div>
+                    <button id="backHomeFromGalleryBtn" class="px-3 py-1 rounded-full bg-slate-800 text-slate-300 font-bold text-xs active:scale-90">
+                        <i class="fa-solid fa-xmark mr-1"></i>關閉
+                    </button>
+                </div>
+
+                <!-- Rarity Filter Bar -->
+                <div class="flex justify-between space-x-1 pt-1" id="filterBar">
+                    <button data-rarity="ALL" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-pink-500 text-white">ALL</button>
+                    <button data-rarity="SSR" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-pink-300">SSR</button>
+                    <button data-rarity="SR" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-purple-300">SR</button>
+                    <button data-rarity="R" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-cyan-300">R</button>
+                    <button data-rarity="N" class="filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-emerald-300">N</button>
+                </div>
+            </div>
+
+            <!-- Grid of Toy Cards -->
+            <div id="galleryGrid" class="w-full flex-1 overflow-y-auto my-2 grid grid-cols-3 gap-2.5 pr-1">
+                <!-- Dynamically Rendered Gallery Cards -->
+            </div>
+
+            <!-- Footer Reset Button -->
+            <div class="w-full flex justify-between items-center px-2 py-1 text-[11px] text-slate-400">
+                <span id="galleryCountDetail">已解鎖: 0 / 12</span>
+                <button id="resetDataBtn" class="text-slate-500 hover:text-red-400 underline">重置所有進度</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL 1: RULES & INSTRUCTIONS -->
+    <div id="rulesModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-4 hidden">
+        <div class="animate-pop-in w-full max-w-xs dream-card rounded-3xl p-5 flex flex-col items-center text-center">
+            <i class="fa-solid fa-gamepad text-3xl text-pink-400 mb-2"></i>
+            <h3 class="text-lg font-black text-pink-200 mb-2">遊戲玩法與說明</h3>
+            
+            <div class="text-xs text-purple-100/90 text-left space-y-2 mb-4 leading-relaxed">
+                <p>1. 🪙 <b>獲取金幣</b>：在扭蛋畫面點擊「餵罐頭 +10」即可獲得金幣。</p>
+                <p>2. 🎰 <b>旋轉扭蛋</b>：每次消耗 50 金幣，旋轉轉盤或按鈕掉出扭蛋。</p>
+                <p>3. 💥 <b>點擊開蛋</b>：扭蛋掉入出口後，點擊扭蛋殼即可揭曉貓咪！</p>
+                <p>4. ⭐ <b>幸運保底</b>：每抽一次累積 10 點幸運值，滿 100 點下次必定獲得 SR 或 SSR！</p>
+                <p>5. 📖 <b>解鎖圖鑑</b>：收集全部 12 款可愛貓咪，點擊圖鑑卡片可看詳情。</p>
+            </div>
+
+            <button id="closeRulesBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-sm">
+                我知道了！
             </button>
-        </div>
-
-        <!-- Grid of Toys -->
-        <div id="galleryGrid" class="w-full max-w-md flex-1 overflow-y-auto my-4 grid grid-cols-3 gap-3 pr-1">
-            <!-- Dynamically Rendered Gallery Cards -->
-        </div>
-
-        <div class="w-full max-w-md text-center text-xs text-slate-500">
-            收集滿所有萌寵即可成為「賽博大師」！
         </div>
     </div>
 
-    <!-- MODAL: CAPSULE OPEN / REWARD POPUP -->
-    <div id="rewardModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-40 flex flex-col items-center justify-center p-4 hidden">
-        <div class="animate-pop-in w-full max-w-sm glass-panel border-2 border-purple-500/50 rounded-3xl p-6 flex flex-col items-center text-center relative shadow-[0_0_50px_rgba(236,72,153,0.3)]">
-            
-            <!-- Rarity Badge -->
-            <div id="rewardRarityBadge" class="px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-3 shadow-md">
+    <!-- MODAL 2: CAPSULE REWARD REVEAL -->
+    <div id="rewardModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="animate-pop-in w-full max-w-xs dream-card rounded-3xl p-5 flex flex-col items-center text-center relative shadow-[0_0_40px_rgba(244,114,182,0.4)]">
+            <div id="rewardRarityBadge" class="px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-2 shadow-md">
                 SSR
             </div>
 
-            <!-- Toy Artwork Display Area -->
-            <div id="rewardArtContainer" class="w-36 h-36 rounded-2xl bg-slate-900/80 border border-slate-700 flex items-center justify-center my-3 relative overflow-hidden pulse-glow">
-                <!-- SVG Artwork injected dynamically -->
+            <div id="rewardArtContainer" class="w-32 h-32 rounded-2xl bg-slate-900/90 border border-purple-400/40 flex items-center justify-center my-2 relative overflow-hidden pulse-glow">
+                <!-- SVG Artwork Injected Dynamically -->
             </div>
 
-            <!-- Toy Name & Description -->
-            <h3 id="rewardName" class="text-2xl font-black text-white mb-1">Cyber Neko</h3>
-            <p id="rewardDesc" class="text-xs text-slate-400 mb-4 px-2">賽博朋克貓咪，擁有微型雷射追蹤眼。</p>
+            <h3 id="rewardName" class="text-xl font-black text-white mb-1">星雲甜心貓</h3>
+            <p id="rewardDesc" class="text-xs text-purple-200/80 mb-3 px-1 leading-relaxed">踩著彩虹星雲過來的夢幻萌貓。</p>
 
-            <div class="text-xs text-amber-300 mb-4 font-bold" id="rewardDupCount">已擁有: 1 只</div>
+            <div class="text-xs text-amber-300 font-bold mb-4" id="rewardDupCount">已累積擁有: 1 只</div>
 
-            <!-- Continue Button -->
-            <button id="closeRewardBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-extrabold text-base uppercase tracking-wider shadow-lg active:scale-95">
-                COLLECT
+            <button id="closeRewardBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-black text-sm uppercase tracking-wider shadow-lg active:scale-95">
+                收下貓咪
             </button>
         </div>
     </div>
 
-    <!-- GAME LOGIC SCRIPT -->
+    <!-- MODAL 3: CAT DETAIL VIEW FROM GALLERY -->
+    <div id="detailModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-40 flex items-center justify-center p-4 hidden">
+        <div class="animate-pop-in w-full max-w-xs dream-card rounded-3xl p-5 flex flex-col items-center text-center relative">
+            <button id="closeDetailBtn" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="detailBadge" class="px-3 py-0.5 rounded-full text-[10px] font-black uppercase mb-2">SSR</div>
+            <div id="detailArt" class="w-28 h-28 rounded-2xl bg-slate-900 border border-purple-400/30 flex items-center justify-center mb-3"></div>
+            <h3 id="detailName" class="text-lg font-black text-white mb-1">貓咪名稱</h3>
+            <p id="detailDesc" class="text-xs text-purple-200/80 mb-3 px-2 leading-relaxed">貓咪故事說明。</p>
+            <div id="detailCount" class="text-xs text-amber-300 font-bold">獲得數量: 0</div>
+        </div>
+    </div>
+
+    <!-- AUDIO & GAME LOGIC SCRIPT -->
     <script>
-        // --- 1. Sound Generator (Web Audio API) ---
+        // --- 1. Audio System (Web Audio API) ---
         class SoundSystem {
             constructor() {
                 this.ctx = null;
@@ -241,14 +358,14 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(987.77, now); // B5
-                osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.08); // E6
-                gain.gain.setValueAtTime(0.3, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                osc.frequency.setValueAtTime(987.77, now);
+                osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.08);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start(now);
-                osc.stop(now + 0.15);
+                osc.stop(now + 0.12);
             }
             playCrank() {
                 if (this.muted) return;
@@ -257,14 +374,14 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(150, now);
-                osc.frequency.linearRampToValueAtTime(400, now + 0.3);
+                osc.frequency.setValueAtTime(160, now);
+                osc.frequency.linearRampToValueAtTime(380, now + 0.25);
                 gain.gain.setValueAtTime(0.2, now);
-                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start(now);
-                osc.stop(now + 0.3);
+                osc.stop(now + 0.25);
             }
             playPop() {
                 if (this.muted) return;
@@ -273,246 +390,264 @@
                 const osc = this.ctx.createOscillator();
                 const gain = this.ctx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, now);
-                osc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
-                gain.gain.setValueAtTime(0.5, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                osc.frequency.setValueAtTime(450, now);
+                osc.frequency.exponentialRampToValueAtTime(90, now + 0.15);
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
                 osc.connect(gain);
                 gain.connect(this.ctx.destination);
                 osc.start(now);
-                osc.stop(now + 0.12);
+                osc.stop(now + 0.15);
             }
             playVictory(isSSR) {
                 if (this.muted) return;
                 this.init();
                 const notes = isSSR ? [523.25, 659.25, 783.99, 1046.50] : [440, 554.37, 659.25];
                 notes.forEach((freq, idx) => {
-                    const now = this.ctx.currentTime + idx * 0.1;
+                    const now = this.ctx.currentTime + idx * 0.09;
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.type = isSSR ? 'triangle' : 'sine';
                     osc.frequency.setValueAtTime(freq, now);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
                     osc.start(now);
-                    osc.stop(now + 0.25);
+                    osc.stop(now + 0.22);
                 });
             }
         }
         const audio = new SoundSystem();
 
-        // --- 2. Collectibles Data (Cyber Pets Theme) ---
-        const PET_DATABASE = [
-            // SSR (Rare 5%)
+        // --- 2. Database of 12 Cats ---
+        const CAT_DATABASE = [
+            // SSR (10%)
             {
-                id: 'ssr_dragon',
-                name: '星雲霓虹龍',
+                id: 'ssr_dragon_cat',
+                name: '星雲甜心龍貓',
                 rarity: 'SSR',
                 color: '#ec4899',
-                desc: '遨遊於賽博雲端的高貴古龍，全身燃燒著等離子火焰。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><path d="M50 15 C30 15 20 35 25 55 C15 65 25 85 45 85 C55 85 80 80 80 50 C80 30 65 15 50 15 Z" fill="#ec4899" stroke="#fff" stroke-width="2"/><circle cx="40" cy="35" r="5" fill="#facc15"/><circle cx="60" cy="35" r="5" fill="#facc15"/><path d="M35 60 Q50 70 65 60" stroke="#fff" stroke-width="3" fill="none"/><polygon points="50,5 58,20 42,20" fill="#38bdf8"/></svg>`
+                desc: '駕馭粉紅星雲的夢幻龍貓，尾巴會散發甜甜的香氣。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><path d="M50 15 C30 15 20 35 25 55 C15 65 25 85 45 85 C55 85 80 80 80 50 C80 30 65 15 50 15 Z" fill="#ec4899" stroke="#fff" stroke-width="2"/><polygon points="35,10 42,22 30,22" fill="#facc15"/><polygon points="65,10 70,22 58,22" fill="#facc15"/><circle cx="40" cy="40" r="5" fill="#fff"/><circle cx="60" cy="40" r="5" fill="#fff"/><circle cx="40" cy="40" r="2" fill="#000"/><circle cx="60" cy="40" r="2" fill="#000"/><path d="M42 62 Q50 68 58 62" stroke="#fff" stroke-width="2.5" fill="none"/></svg>`
             },
             {
-                id: 'ssr_fox',
-                name: '九尾電晶狐',
+                id: 'ssr_angel_cat',
+                name: '熾天使光之貓',
                 rarity: 'SSR',
                 color: '#ec4899',
-                desc: '傳說中掌握高頻電晶數據的九尾神狐。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="30,20 15,50 40,40" fill="#a855f7"/><polygon points="70,20 85,50 60,40" fill="#a855f7"/><ellipse cx="50" cy="55" rx="30" ry="25" fill="#f472b6"/><circle cx="40" cy="50" r="4" fill="#000"/><circle cx="60" cy="50" r="4" fill="#000"/><polygon points="50,58 46,64 54,64" fill="#000"/><path d="M20 70 Q10 40 5 60" stroke="#a855f7" stroke-width="4" fill="none"/><path d="M80 70 Q90 40 95 60" stroke="#a855f7" stroke-width="4" fill="none"/></svg>`
+                desc: '背著羽翼的守護天使貓，能在夢境中降下好運之星。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="18" rx="20" ry="5" fill="none" stroke="#facc15" stroke-width="3"/><polygon points="25,30 35,50 15,45" fill="#c084fc"/><polygon points="75,30 65,50 85,45" fill="#c084fc"/><circle cx="50" cy="58" r="26" fill="#e879f9"/><circle cx="40" cy="52" r="4" fill="#000"/><circle cx="60" cy="52" r="4" fill="#000"/><path d="M15 55 Q5 40 20 40 Z" fill="#fff"/><path d="M85 55 Q95 40 80 40 Z" fill="#fff"/></svg>`
             },
-            // SR (15%)
+            // SR (20%)
             {
-                id: 'sr_neko',
-                name: '雷射量子貓',
+                id: 'sr_witch_cat',
+                name: '紫羅蘭魔女貓',
                 rarity: 'SR',
                 color: '#a855f7',
-                desc: '眼睛能發射紅外線瞄準閃光，最喜歡抓光點。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="25,25 35,50 15,45" fill="#38bdf8"/><polygon points="75,25 65,50 85,45" fill="#38bdf8"/><circle cx="50" cy="55" r="28" fill="#a855f7"/><ellipse cx="40" cy="50" rx="5" ry="8" fill="#38bdf8"/><ellipse cx="60" cy="50" rx="5" ry="8" fill="#38bdf8"/><path d="M45 65 Q50 70 55 65" stroke="#fff" stroke-width="2" fill="none"/></svg>`
+                desc: '戴著魔女帽的魔法貓咪，擅長將罐頭變成幸運金幣。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="50,10 25,45 75,45" fill="#581c87"/><ellipse cx="50" cy="45" rx="30" ry="6" fill="#7e22ce"/><polygon points="25,40 35,60 15,55" fill="#c084fc"/><polygon points="75,40 65,60 85,55" fill="#c084fc"/><circle cx="50" cy="65" r="24" fill="#a855f7"/><circle cx="40" cy="60" r="3.5" fill="#facc15"/><circle cx="60" cy="60" r="3.5" fill="#facc15"/></svg>`
             },
             {
-                id: 'sr_owl',
-                name: '全息夜行鷹',
+                id: 'sr_mermaid_cat',
+                name: '彩虹美人魚貓',
                 rarity: 'SR',
                 color: '#a855f7',
-                desc: '通曉數據庫的智者，能在夜間掃描整個城市的網絡。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="50" r="32" fill="#3b82f6"/><circle cx="38" cy="45" r="10" fill="#fff"/><circle cx="62" cy="45" r="10" fill="#fff"/><circle cx="38" cy="45" r="4" fill="#000"/><circle cx="62" cy="45" r="4" fill="#000"/><polygon points="50,55 45,63 55,63" fill="#facc15"/></svg>`
+                desc: '潛入夢幻海洋的魚尾貓咪，最喜歡在星光下優游。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="25,25 35,45 15,40" fill="#38bdf8"/><polygon points="75,25 65,45 85,40" fill="#38bdf8"/><circle cx="50" cy="48" r="24" fill="#818cf8"/><path d="M50 70 Q30 90 60 95 Q50 80 50 70 Z" fill="#38bdf8"/><circle cx="40" cy="44" r="3.5" fill="#fff"/><circle cx="60" cy="44" r="3.5" fill="#fff"/></svg>`
             },
             {
-                id: 'sr_bear',
-                name: '裝甲脈衝熊',
+                id: 'sr_baker_cat',
+                name: '草莓麵包貓',
                 rarity: 'SR',
                 color: '#a855f7',
-                desc: '防禦力極高的重型裝甲熊，手掌帶有電磁脈衝。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="25" cy="30" r="12" fill="#64748b"/><circle cx="75" cy="30" r="12" fill="#64748b"/><circle cx="50" cy="55" r="30" fill="#475569"/><ellipse cx="50" cy="60" rx="15" ry="10" fill="#94a3b8"/><circle cx="42" cy="48" r="4" fill="#f43f5e"/><circle cx="58" cy="48" r="4" fill="#f43f5e"/></svg>`
+                desc: '烤得蓬鬆香甜的草莓貓咪，身上散發著新鮮草莓香。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><rect x="22" y="35" width="56" height="45" rx="20" fill="#fbbf24"/><polygon points="25,20 35,40 15,35" fill="#f472b6"/><polygon points="75,20 65,40 85,35" fill="#f472b6"/><circle cx="40" cy="50" r="3.5" fill="#78350f"/><circle cx="60" cy="50" r="3.5" fill="#78350f"/><circle cx="50" cy="35" r="6" fill="#ef4444"/></svg>`
             },
             // R (30%)
             {
-                id: 'r_shiba',
-                name: '柴犬核心號',
+                id: 'r_space_cat',
+                name: '太空宇航貓',
                 rarity: 'R',
                 color: '#38bdf8',
-                desc: '永遠充滿活力的推進器柴犬，汪汪聲能產生微波。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="55" rx="28" ry="24" fill="#fb923c"/><polygon points="25,30 40,40 20,50" fill="#fb923c"/><polygon points="75,30 60,40 80,50" fill="#fb923c"/><circle cx="38" cy="50" r="4" fill="#000"/><circle cx="62" cy="50" r="4" fill="#000"/><ellipse cx="50" cy="62" rx="8" ry="5" fill="#fff"/><circle cx="50" cy="60" r="3" fill="#000"/></svg>`
+                desc: '戴著全息頭盔的太空貓，夢想探測宇宙中最美味的魚干。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="52" r="32" fill="none" stroke="#38bdf8" stroke-width="4"/><polygon points="25,25 35,45 15,40" fill="#94a3b8"/><polygon points="75,25 65,45 85,40" fill="#94a3b8"/><circle cx="50" cy="52" r="24" fill="#cbd5e1"/><circle cx="40" cy="48" r="3" fill="#000"/><circle cx="60" cy="48" r="3" fill="#000"/></svg>`
             },
             {
-                id: 'r_bunny',
-                name: '光子跑跑兔',
+                id: 'r_matcha_cat',
+                name: '靜岡抹茶大福貓',
                 rarity: 'R',
                 color: '#38bdf8',
-                desc: '長耳朵是高效能無線天線，移動速度極快。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><rect x="35" y="15" width="8" height="35" rx="4" fill="#f472b6"/><rect x="57" y="15" width="8" height="35" rx="4" fill="#f472b6"/><circle cx="50" cy="60" r="25" fill="#fbcfe8"/><circle cx="40" cy="55" r="3.5" fill="#000"/><circle cx="60" cy="55" r="3.5" fill="#000"/><ellipse cx="50" cy="64" rx="3" ry="2" fill="#f43f5e"/></svg>`
+                desc: '圓滾滾的抹茶貓，性格溫和，喜歡靜靜地曬太陽。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="58" rx="30" ry="24" fill="#4ade80"/><polygon points="25,30 38,42 20,48" fill="#22c55e"/><polygon points="75,30 62,42 80,48" fill="#22c55e"/><circle cx="38" cy="52" r="3" fill="#000"/><circle cx="62" cy="52" r="3" fill="#000"/><ellipse cx="50" cy="64" rx="6" ry="3" fill="#bbf7d0"/></svg>`
             },
             {
-                id: 'r_penguin',
-                name: '極地冷卻企鵝',
+                id: 'r_ninja_cat',
+                name: '影之忍法貓',
                 rarity: 'R',
                 color: '#38bdf8',
-                desc: '負責為伺服器主機冷卻散熱的呆萌企鵝。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><ellipse cx="50" cy="55" rx="25" ry="30" fill="#0f172a"/><ellipse cx="50" cy="58" rx="16" ry="22" fill="#fff"/><circle cx="42" cy="45" r="3" fill="#000"/><circle cx="58" cy="45" r="3" fill="#000"/><polygon points="50,49 44,55 56,55" fill="#f59e0b"/></svg>`
+                desc: '身手敏捷的忍者貓，會在深夜悄悄把小魚干藏起來。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="25,25 35,45 15,40" fill="#1e293b"/><polygon points="75,25 65,45 85,40" fill="#1e293b"/><circle cx="50" cy="55" r="26" fill="#334155"/><rect x="25" y="48" width="50" height="12" fill="#ef4444"/><circle cx="40" cy="54" r="3" fill="#fff"/><circle cx="60" cy="54" r="3" fill="#fff"/></svg>`
             },
-            // N (50%)
+            // N (40%)
             {
-                id: 'n_slime',
-                name: '像素史萊姆',
+                id: 'n_orange_cat',
+                name: '橘子大胖貓',
                 rarity: 'N',
                 color: '#4ade80',
-                desc: '最常見的基礎數據流凝聚體。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><path d="M20 60 Q20 30 50 30 Q80 30 80 60 Q80 75 50 75 Q20 75 20 60 Z" fill="#4ade80"/><circle cx="38" cy="50" r="4" fill="#000"/><circle cx="62" cy="50" r="4" fill="#000"/></svg>`
+                desc: '最標準的大橘貓，人生座右銘就是吃飽睡覺。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="25,25 35,45 15,40" fill="#fb923c"/><polygon points="75,25 65,45 85,40" fill="#fb923c"/><circle cx="50" cy="55" r="28" fill="#f97316"/><circle cx="38" cy="50" r="3" fill="#000"/><circle cx="62" cy="50" r="3" fill="#000"/><ellipse cx="50" cy="62" rx="8" ry="5" fill="#ffedd5"/></svg>`
             },
             {
-                id: 'n_chick',
-                name: '發光發條小雞',
+                id: 'n_calico_cat',
+                name: '三花幸運貓',
                 rarity: 'N',
                 color: '#4ade80',
-                desc: '運轉時會發出啾啾聲的機械小雞。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="50" cy="55" r="24" fill="#facc15"/><circle cx="42" cy="48" r="3" fill="#000"/><circle cx="58" cy="48" r="3" fill="#000"/><polygon points="50,52 45,58 55,58" fill="#f97316"/></svg>`
+                desc: '身上有三種顏色斑紋的花貓，招財能力一流。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="25,25 35,45 15,40" fill="#000"/><polygon points="75,25 65,45 85,40" fill="#fb923c"/><circle cx="50" cy="55" r="28" fill="#fff"/><path d="M22 45 C35 35 45 60 25 75 Z" fill="#fb923c"/><circle cx="38" cy="50" r="3" fill="#000"/><circle cx="62" cy="50" r="3" fill="#000"/></svg>`
             },
             {
-                id: 'n_frog',
-                name: '聲納蛙蛙',
+                id: 'n_tuxedo_cat',
+                name: '紳士黑白貓',
                 rarity: 'N',
                 color: '#4ade80',
-                desc: '能發出低頻聲納波尋找失蹤數據包。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><circle cx="32" cy="35" r="8" fill="#22c55e"/><circle cx="68" cy="35" r="8" fill="#22c55e"/><ellipse cx="50" cy="58" rx="28" ry="22" fill="#4ade80"/><circle cx="32" cy="35" r="3" fill="#000"/><circle cx="68" cy="35" r="3" fill="#000"/><path d="M40 62 Q50 68 60 62" stroke="#000" stroke-width="2" fill="none"/></svg>`
+                desc: '永遠穿著燕尾服的優雅黑白貓。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><polygon points="25,25 35,45 15,40" fill="#0f172a"/><polygon points="75,25 65,45 85,40" fill="#0f172a"/><circle cx="50" cy="55" r="28" fill="#1e293b"/><polygon points="50,45 35,75 65,75" fill="#fff"/><circle cx="40" cy="50" r="3" fill="#fff"/><circle cx="60" cy="50" r="3" fill="#fff"/></svg>`
             },
             {
-                id: 'n_bot',
-                name: '清潔機器人',
+                id: 'n_box_cat',
+                name: '紙箱潛伏貓',
                 rarity: 'N',
                 color: '#4ade80',
-                desc: '默默掃描記憶體垃圾檔案的微型機器人。',
-                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><rect x="30" y="35" width="40" height="35" rx="8" fill="#94a3b8"/><rect x="38" y="42" width="24" height="10" rx="3" fill="#38bdf8"/><line x1="50" y1="20" x2="50" y2="35" stroke="#94a3b8" stroke-width="4"/><circle cx="50" cy="18" r="5" fill="#ef4444"/></svg>`
+                desc: '無論紙箱多小都能擠進去的紙箱愛好者。',
+                svg: `<svg viewBox="0 0 100 100" class="w-full h-full"><rect x="20" y="50" width="60" height="35" fill="#d97706" rx="4"/><polygon points="30,25 40,45 20,40" fill="#94a3b8"/><polygon points="70,25 60,45 80,40" fill="#94a3b8"/><circle cx="50" cy="45" r="22" fill="#cbd5e1"/><circle cx="40" cy="42" r="3" fill="#000"/><circle cx="60" cy="42" r="3" fill="#000"/></svg>`
             }
         ];
 
-        // --- 3. App State & Storage ---
+        // --- 3. App State & LocalStorage ---
         let state = {
-            coins: 100,
-            unlocked: {}, // { pet_id: count }
+            coins: 150,
+            pity: 0,
+            unlocked: {}, // { cat_id: count }
             isSpinning: false,
             hasCapsuleInExit: false,
-            currentExitPet: null
+            currentExitCat: null,
+            currentFilter: 'ALL'
         };
 
         function loadState() {
-            const saved = localStorage.getItem('cyber_gacha_save');
+            const saved = localStorage.getItem('dream_cat_gacha_save');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
-                    state.coins = parsed.coins ?? 100;
+                    state.coins = parsed.coins ?? 150;
+                    state.pity = parsed.pity ?? 0;
                     state.unlocked = parsed.unlocked ?? {};
-                } catch(e) { console.error(e); }
+                } catch (e) { console.error(e); }
             }
             updateUI();
         }
 
         function saveState() {
-            localStorage.setItem('cyber_gacha_save', JSON.stringify({
+            localStorage.setItem('dream_cat_gacha_save', JSON.stringify({
                 coins: state.coins,
+                pity: state.pity,
                 unlocked: state.unlocked
             }));
             updateUI();
         }
 
-        // --- 4. Interactive Machine Canvas Animation ---
+        // --- 4. Navigation & Screens ---
+        function showScreen(screenId) {
+            ['screenHome', 'screenGacha', 'screenGallery'].forEach(id => {
+                const el = document.getElementById(id);
+                if (id === screenId) {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+            if (screenId === 'screenGacha') {
+                resizeCanvas();
+                initBalls();
+            }
+        }
+
+        // --- 5. Gacha Machine Physics Canvas Animation ---
         const canvas = document.getElementById('gachaCanvas');
         const ctx = canvas.getContext('2d');
         let balls = [];
 
         function resizeCanvas() {
+            if (!canvas.parentElement) return;
             canvas.width = canvas.parentElement.clientWidth;
             canvas.height = canvas.parentElement.clientHeight;
         }
-        window.addEventListener('resize', () => { resizeCanvas(); initBalls(); });
 
-        const BALL_COLORS = ['#ec4899', '#a855f7', '#38bdf8', '#4ade80', '#facc15'];
+        const BALL_COLORS = ['#ec4899', '#a855f7', '#38bdf8', '#4ade80', '#facc15', '#f472b6'];
 
         function initBalls() {
             balls = [];
-            const count = 18;
+            const count = 16;
             for (let i = 0; i < count; i++) {
                 balls.push({
                     x: Math.random() * (canvas.width - 40) + 20,
-                    y: Math.random() * (canvas.height - 50) + 25,
+                    y: Math.random() * (canvas.height - 40) + 20,
                     vx: (Math.random() - 0.5) * 2,
                     vy: (Math.random() - 0.5) * 2,
-                    r: 16,
+                    r: 15,
                     color: BALL_COLORS[i % BALL_COLORS.length]
                 });
             }
         }
 
         function animateMachine() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (canvas.width && canvas.height) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Render Bouncing Gacha Capsules in Dome
-            balls.forEach(b => {
-                b.x += b.vx;
-                b.y += b.vy;
+                balls.forEach(b => {
+                    b.x += b.vx;
+                    b.y += b.vy;
 
-                // Wall collisions
-                if (b.x - b.r < 10 || b.x + b.r > canvas.width - 10) b.vx *= -1;
-                if (b.y - b.r < 10 || b.y + b.r > canvas.height - 10) b.vy *= -1;
+                    if (b.x - b.r < 8 || b.x + b.r > canvas.width - 8) b.vx *= -1;
+                    if (b.y - b.r < 8 || b.y + b.r > canvas.height - 8) b.vy *= -1;
 
-                // Draw 2-Tone Gacha Ball
-                ctx.save();
-                ctx.translate(b.x, b.y);
+                    ctx.save();
+                    ctx.translate(b.x, b.y);
 
-                // Bottom Half Color
-                ctx.beginPath();
-                ctx.arc(0, 0, b.r, 0, Math.PI);
-                ctx.fillStyle = b.color;
-                ctx.fill();
+                    // Bottom half colored
+                    ctx.beginPath();
+                    ctx.arc(0, 0, b.r, 0, Math.PI);
+                    ctx.fillStyle = b.color;
+                    ctx.fill();
 
-                // Top Half Transparent White
-                ctx.beginPath();
-                ctx.arc(0, 0, b.r, Math.PI, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-                ctx.fill();
+                    // Top half white/translucent
+                    ctx.beginPath();
+                    ctx.arc(0, 0, b.r, Math.PI, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+                    ctx.fill();
 
-                // Center Seam Line
-                ctx.beginPath();
-                ctx.moveTo(-b.r, 0);
-                ctx.lineTo(b.r, 0);
-                ctx.strokeStyle = '#334155';
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
+                    // Seam line
+                    ctx.beginPath();
+                    ctx.moveTo(-b.r, 0);
+                    ctx.lineTo(b.r, 0);
+                    ctx.strokeStyle = '#334155';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
 
-                // Shine
-                ctx.beginPath();
-                ctx.arc(-b.r * 0.3, -b.r * 0.3, b.r * 0.3, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255,255,255,0.4)';
-                ctx.fill();
+                    // Reflection highlight
+                    ctx.beginPath();
+                    ctx.arc(-b.r * 0.35, -b.r * 0.35, b.r * 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                    ctx.fill();
 
-                ctx.restore();
-            });
-
+                    ctx.restore();
+                });
+            }
             requestAnimationFrame(animateMachine);
         }
 
-        function shuffleBalls() {
+        function shakeBalls() {
             balls.forEach(b => {
                 b.vx = (Math.random() - 0.5) * 16;
                 b.vy = (Math.random() - 0.5) * 16;
@@ -522,30 +657,38 @@
                     b.vx = (Math.random() - 0.5) * 2;
                     b.vy = (Math.random() - 0.5) * 2;
                 });
-            }, 800);
+            }, 750);
         }
 
-        // --- 5. Gacha Pull Core Logic ---
-        function drawRandomPet() {
-            const rand = Math.random() * 100;
+        // --- 6. Gacha Logic with Pity Mechanism ---
+        function drawRandomCat() {
             let targetRarity = 'N';
-            if (rand < 5) targetRarity = 'SSR';        // 5%
-            else if (rand < 20) targetRarity = 'SR';    // 15%
-            else if (rand < 50) targetRarity = 'R';     // 30%
-            else targetRarity = 'N';                    // 50%
+            // Pity check: if pity reaches 100, guarantee SR or SSR!
+            if (state.pity >= 100) {
+                targetRarity = Math.random() < 0.35 ? 'SSR' : 'SR';
+                state.pity = 0; // reset pity
+            } else {
+                const rand = Math.random() * 100;
+                if (rand < 10) targetRarity = 'SSR';      // 10%
+                else if (rand < 30) targetRarity = 'SR';  // 20%
+                else if (rand < 60) targetRarity = 'R';   // 30%
+                else targetRarity = 'N';                  // 40%
 
-            const pool = PET_DATABASE.filter(p => p.rarity === targetRarity);
+                state.pity = Math.min(100, state.pity + 10);
+            }
+
+            const pool = CAT_DATABASE.filter(c => c.rarity === targetRarity);
             return pool[Math.floor(Math.random() * pool.length)];
         }
 
         function triggerPull() {
             if (state.isSpinning) return;
-            if (state.coins < 10) {
-                alert('金幣不足！點擊左上角 +100 補充金幣。');
+            if (state.coins < 50) {
+                alert('金幣不足！請點擊右上角「餵罐頭 +10」賺取金幣！');
                 return;
             }
 
-            state.coins -= 10;
+            state.coins -= 50;
             state.isSpinning = true;
             saveState();
 
@@ -554,14 +697,18 @@
             setTimeout(() => {
                 audio.playCrank();
                 document.getElementById('crankKnob').classList.add('spinning');
-                shuffleBalls();
+                document.getElementById('machineBody').classList.add('shaking');
+                shakeBalls();
             }, 200);
 
-            // Spawn Capsule in Exit Tray after knob turn
+            // Spawn Capsule in Tray
             setTimeout(() => {
                 document.getElementById('crankKnob').classList.remove('spinning');
-                state.currentExitPet = drawRandomPet();
-                spawnCapsuleInTray(state.currentExitPet.color);
+                document.getElementById('machineBody').classList.remove('shaking');
+                
+                state.currentExitCat = drawRandomCat();
+                saveState();
+                spawnCapsuleInTray(state.currentExitCat.color);
                 state.isSpinning = false;
             }, 800);
         }
@@ -569,158 +716,227 @@
         function spawnCapsuleInTray(color) {
             const tray = document.getElementById('exitTray');
             tray.innerHTML = `
-                <div id="droppedCapsule" class="animate-capsule-drop relative w-12 h-12 rounded-full cursor-pointer shadow-lg flex items-center justify-center">
+                <div id="droppedCapsule" class="animate-capsule-drop relative w-11 h-11 rounded-full cursor-pointer shadow-lg flex items-center justify-center">
                     <div class="absolute inset-0 rounded-full" style="background: linear-gradient(to bottom, rgba(255,255,255,0.9) 50%, ${color} 50%); border: 2px solid #1e293b;"></div>
-                    <span class="relative text-[10px] font-black text-slate-800 bg-white/80 px-1 rounded">TAP!</span>
+                    <span class="relative text-[9px] font-black text-slate-900 bg-white/90 px-1 rounded shadow">點我！</span>
                 </div>
             `;
             state.hasCapsuleInExit = true;
-
             document.getElementById('droppedCapsule').addEventListener('click', openCapsule);
         }
 
         function openCapsule() {
-            if (!state.hasCapsuleInExit || !state.currentExitPet) return;
+            if (!state.hasCapsuleInExit || !state.currentExitCat) return;
 
-            const pet = state.currentExitPet;
+            const cat = state.currentExitCat;
             audio.playPop();
 
             // Record Collection
-            state.unlocked[pet.id] = (state.unlocked[pet.id] || 0) + 1;
+            state.unlocked[cat.id] = (state.unlocked[cat.id] || 0) + 1;
             saveState();
 
-            // Clear Exit Tray
+            // Clear Tray
             document.getElementById('exitTray').innerHTML = '';
             state.hasCapsuleInExit = false;
 
-            // Show Reward Modal
-            showRewardModal(pet);
+            // Show Reward Popup
+            showRewardModal(cat);
         }
 
-        function showRewardModal(pet) {
+        function showRewardModal(cat) {
             const modal = document.getElementById('rewardModal');
-            const rarityBadge = document.getElementById('rewardRarityBadge');
+            const badge = document.getElementById('rewardRarityBadge');
             const artContainer = document.getElementById('rewardArtContainer');
 
-            // Set Rarity Color Styles
-            const rarityColors = {
+            const rarityStyles = {
                 'SSR': 'bg-pink-500 text-white shadow-[0_0_15px_rgba(236,72,153,0.8)]',
                 'SR': 'bg-purple-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.8)]',
                 'R': 'bg-cyan-500 text-slate-950 shadow-[0_0_15px_rgba(56,189,248,0.8)]',
                 'N': 'bg-emerald-500 text-slate-950'
             };
 
-            rarityBadge.className = `px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-3 ${rarityColors[pet.rarity]}`;
-            rarityBadge.innerText = pet.rarity;
+            badge.className = `px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-2 shadow-md ${rarityStyles[cat.rarity]}`;
+            badge.innerText = cat.rarity;
 
-            document.getElementById('rewardName').innerText = pet.name;
-            document.getElementById('rewardDesc').innerText = pet.desc;
-            document.getElementById('rewardDupCount').innerText = `已累積擁有: ${state.unlocked[pet.id]} 只`;
-
-            artContainer.innerHTML = pet.svg;
+            document.getElementById('rewardName').innerText = cat.name;
+            document.getElementById('rewardDesc').innerText = cat.desc;
+            document.getElementById('rewardDupCount').innerText = `已累積擁有: ${state.unlocked[cat.id]} 只`;
+            artContainer.innerHTML = cat.svg;
 
             modal.classList.remove('hidden');
 
-            // Victory Audio & Confetti
-            const isSSR = pet.rarity === 'SSR';
+            const isSSR = cat.rarity === 'SSR';
             audio.playVictory(isSSR);
 
-            if (isSSR || pet.rarity === 'SR') {
+            if (isSSR || cat.rarity === 'SR') {
                 confetti({
-                    particleCount: isSSR ? 120 : 60,
+                    particleCount: isSSR ? 130 : 65,
                     spread: 80,
                     origin: { y: 0.6 }
                 });
             }
         }
 
-        // --- 6. Gallery Modal Update ---
+        // --- 7. Gallery Render & Filters ---
         function renderGallery() {
             const grid = document.getElementById('galleryGrid');
             grid.innerHTML = '';
 
-            let unlockedTypesCount = 0;
+            let unlockedCount = 0;
 
-            PET_DATABASE.forEach(pet => {
-                const count = state.unlocked[pet.id] || 0;
+            const filteredList = CAT_DATABASE.filter(cat => {
+                if (state.currentFilter === 'ALL') return true;
+                return cat.rarity === state.currentFilter;
+            });
+
+            CAT_DATABASE.forEach(c => {
+                if ((state.unlocked[c.id] || 0) > 0) unlockedCount++;
+            });
+
+            filteredList.forEach(cat => {
+                const count = state.unlocked[cat.id] || 0;
                 const isUnlocked = count > 0;
-                if (isUnlocked) unlockedTypesCount++;
 
                 const card = document.createElement('div');
-                card.className = `relative rounded-2xl border p-2 flex flex-col items-center justify-between text-center ${
+                card.className = `relative rounded-2xl border p-2 flex flex-col items-center justify-between text-center cursor-pointer transition active:scale-95 ${
                     isUnlocked 
-                        ? 'bg-slate-900/90 border-purple-500/50 shadow-md' 
+                        ? 'bg-slate-900/90 border-pink-400/50 shadow-md' 
                         : 'bg-slate-950/60 border-slate-800 opacity-50 grayscale'
                 }`;
 
                 card.innerHTML = `
-                    <span class="absolute top-1.5 left-2 text-[9px] font-black px-1.5 py-0.5 rounded ${
-                        pet.rarity === 'SSR' ? 'bg-pink-500 text-white' :
-                        pet.rarity === 'SR' ? 'bg-purple-500 text-white' :
-                        pet.rarity === 'R' ? 'bg-cyan-500 text-black' : 'bg-slate-700 text-white'
-                    }">${pet.rarity}</span>
-                    
-                    ${isUnlocked ? `<span class="absolute top-1.5 right-2 text-[9px] bg-slate-800 text-amber-300 font-bold px-1.5 py-0.5 rounded-full">x${count}</span>` : ''}
+                    <span class="absolute top-1.5 left-1.5 text-[8px] font-black px-1.5 py-0.5 rounded ${
+                        cat.rarity === 'SSR' ? 'bg-pink-500 text-white' :
+                        cat.rarity === 'SR' ? 'bg-purple-500 text-white' :
+                        cat.rarity === 'R' ? 'bg-cyan-500 text-black' : 'bg-slate-700 text-white'
+                    }">${cat.rarity}</span>
 
-                    <div class="w-16 h-16 my-2 flex items-center justify-center">
-                        ${isUnlocked ? pet.svg : '<i class="fa-solid fa-lock text-2xl text-slate-600"></i>'}
+                    ${isUnlocked ? `<span class="absolute top-1.5 right-1.5 text-[8px] bg-slate-800 text-amber-300 font-bold px-1.5 py-0.5 rounded-full">x${count}</span>` : ''}
+
+                    <div class="w-14 h-14 my-1.5 flex items-center justify-center">
+                        ${isUnlocked ? cat.svg : '<i class="fa-solid fa-lock text-xl text-slate-600"></i>'}
                     </div>
 
-                    <div class="text-xs font-extrabold ${isUnlocked ? 'text-white' : 'text-slate-500'} truncate w-full">
-                        ${isUnlocked ? pet.name : '???'}
+                    <div class="text-[11px] font-extrabold ${isUnlocked ? 'text-white' : 'text-slate-500'} truncate w-full">
+                        ${isUnlocked ? cat.name : '???'}
                     </div>
                 `;
+
+                card.addEventListener('click', () => {
+                    if (isUnlocked) {
+                        showCatDetail(cat);
+                    } else {
+                        alert('這隻貓咪尚未解鎖，快去扭蛋機抽卡吧！');
+                    }
+                });
+
                 grid.appendChild(card);
             });
 
-            const percent = Math.round((unlockedTypesCount / PET_DATABASE.length) * 100);
-            document.getElementById('galleryPercent').innerText = `${percent}%`;
-            document.getElementById('galleryProgressText').innerText = `${unlockedTypesCount} / ${PET_DATABASE.length} (${percent}%)`;
+            const percent = Math.round((unlockedCount / CAT_DATABASE.length) * 100);
+            document.getElementById('galleryPercentText').innerText = `${percent}%`;
+            document.getElementById('galleryCountDetail').innerText = `已解鎖: ${unlockedCount} / ${CAT_DATABASE.length}`;
+            document.getElementById('homeCollectedCount').innerText = `${unlockedCount} / ${CAT_DATABASE.length}`;
+            document.getElementById('homePercent').innerText = `${percent}%`;
         }
 
-        // --- 7. UI Sync & Listeners ---
+        function showCatDetail(cat) {
+            const modal = document.getElementById('detailModal');
+            document.getElementById('detailBadge').innerText = cat.rarity;
+            document.getElementById('detailBadge').className = `px-3 py-0.5 rounded-full text-[10px] font-black uppercase mb-2 ${
+                cat.rarity === 'SSR' ? 'bg-pink-500 text-white' :
+                cat.rarity === 'SR' ? 'bg-purple-500 text-white' :
+                cat.rarity === 'R' ? 'bg-cyan-500 text-black' : 'bg-slate-700 text-white'
+            }`;
+            document.getElementById('detailArt').innerHTML = cat.svg;
+            document.getElementById('detailName').innerText = cat.name;
+            document.getElementById('detailDesc').innerText = cat.desc;
+            document.getElementById('detailCount').innerText = `已獲得數量: ${state.unlocked[cat.id] || 0} 只`;
+            
+            modal.classList.remove('hidden');
+            audio.playPop();
+        }
+
+        // --- 8. Synchronize UI State ---
         function updateUI() {
-            document.getElementById('coinCount').innerText = state.coins;
+            document.getElementById('globalCoinCount').innerText = state.coins;
+            document.getElementById('pityBar').style.width = `${state.pity}%`;
+            document.getElementById('pityText').innerText = `${state.pity}/100`;
+            document.getElementById('homePity').innerText = `${state.pity} / 100`;
+
             renderGallery();
         }
 
-        document.getElementById('pullBtn').addEventListener('click', triggerPull);
-        document.getElementById('crankArea').addEventListener('click', triggerPull);
+        // --- 9. Event Listeners ---
+        // Navigation Buttons
+        document.getElementById('goGachaBtn').addEventListener('click', () => showScreen('screenGacha'));
+        document.getElementById('goGalleryFromHomeBtn').addEventListener('click', () => {
+            renderGallery();
+            showScreen('screenGallery');
+        });
+        document.getElementById('goGalleryFromGachaBtn').addEventListener('click', () => {
+            renderGallery();
+            showScreen('screenGallery');
+        });
+        document.getElementById('backHomeFromGachaBtn').addEventListener('click', () => showScreen('screenHome'));
+        document.getElementById('backHomeFromGalleryBtn').addEventListener('click', () => showScreen('screenHome'));
 
-        document.getElementById('addCoinBtn').addEventListener('click', () => {
-            state.coins += 100;
+        // Interaction: Feed Coin (+10)
+        document.getElementById('feedCoinBtn').addEventListener('click', () => {
+            state.coins += 10;
             audio.playCoin();
             saveState();
         });
 
-        document.getElementById('galleryBtn').addEventListener('click', () => {
-            renderGallery();
-            document.getElementById('galleryModal').classList.remove('hidden');
+        // Pull Actions
+        document.getElementById('pullBtn').addEventListener('click', triggerPull);
+        document.getElementById('crankArea').addEventListener('click', triggerPull);
+
+        // Rarity Filter Buttons
+        document.querySelectorAll('#filterBar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('#filterBar .filter-btn').forEach(b => {
+                    b.className = 'filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-slate-800 text-slate-300';
+                });
+                e.target.className = 'filter-btn flex-1 py-1 rounded-lg text-xs font-black bg-pink-500 text-white';
+                state.currentFilter = e.target.getAttribute('data-rarity');
+                renderGallery();
+            });
         });
 
-        document.getElementById('closeGalleryBtn').addEventListener('click', () => {
-            document.getElementById('galleryModal').classList.add('hidden');
+        // Modals Controls
+        document.getElementById('helpBtn').addEventListener('click', () => {
+            document.getElementById('rulesModal').classList.remove('hidden');
         });
-
+        document.getElementById('closeRulesBtn').addEventListener('click', () => {
+            document.getElementById('rulesModal').classList.add('hidden');
+        });
         document.getElementById('closeRewardBtn').addEventListener('click', () => {
             document.getElementById('rewardModal').classList.add('hidden');
         });
-
-        document.getElementById('soundToggleBtn').addEventListener('click', () => {
-            audio.muted = !audio.muted;
-            document.getElementById('soundIcon').className = audio.muted ? 'fa-solid fa-volume-xmark text-lg' : 'fa-solid fa-volume-high text-lg';
+        document.getElementById('closeDetailBtn').addEventListener('click', () => {
+            document.getElementById('detailModal').classList.add('hidden');
         });
 
+        // Mute Control
+        document.getElementById('soundToggleBtn').addEventListener('click', () => {
+            audio.muted = !audio.muted;
+            document.getElementById('soundIcon').className = audio.muted ? 'fa-solid fa-volume-xmark text-base' : 'fa-solid fa-volume-high text-base';
+        });
+
+        // Reset Storage
         document.getElementById('resetDataBtn').addEventListener('click', () => {
-            if (confirm('確定要重置所有扭蛋進度與金幣嗎？')) {
-                localStorage.removeItem('cyber_gacha_save');
-                state.coins = 100;
+            if (confirm('確定要重置所有夢幻貓咪數據與金幣嗎？')) {
+                localStorage.removeItem('dream_cat_gacha_save');
+                state.coins = 150;
+                state.pity = 0;
                 state.unlocked = {};
                 saveState();
             }
         });
 
-        // App Initialization
+        // Initialize App
+        window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
         initBalls();
         animateMachine();
